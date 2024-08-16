@@ -1,10 +1,7 @@
 package com.library.api.modules.books;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +15,7 @@ import com.library.api.modules.books.enums.BookState;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Book {
 
     @Id
@@ -27,6 +25,8 @@ public class Book {
     private String title;
 
     private LocalDate publicationDate;
+
+    private String isbn;
 
     @ManyToMany(mappedBy = "books")
     private List<Author> authors = new ArrayList<>();

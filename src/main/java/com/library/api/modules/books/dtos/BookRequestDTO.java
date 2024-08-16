@@ -1,5 +1,6 @@
 package com.library.api.modules.books.dtos;
 
+import com.library.api.modules.books.validations.ISBN;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ import java.util.List;
 import com.library.api.modules.books.enums.BookState;
 
 @Getter
-//@Builder
+@Builder
 public class BookRequestDTO {
 
     @NotBlank(message = "O título do livro deve ser informado")
@@ -20,9 +21,14 @@ public class BookRequestDTO {
     @NotBlank(message = "A data de publicação do livro deve ser informada no formato 'YYYY-MM-DD'")
     String publicationDate;
 
+    @ISBN
+    @NotBlank(message = "O isbn deve ser informado")
+    String isbn;
+
     @NotNull(message = "A lista de IDs de autores não pode ser nula")
     @NotEmpty(message = "Deve ser informado ao menos um ID de autor")
     List<Long> authorIds;
 
+    @Builder.Default
     BookState state = BookState.AVAILABLE;
 }
