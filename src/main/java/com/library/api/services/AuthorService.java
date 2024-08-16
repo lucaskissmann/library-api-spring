@@ -1,7 +1,7 @@
 package com.library.api.services;
 
+import com.library.api.modules.authors.validations.AuthorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.library.api.helpers.exceptions.NotFoundException;
@@ -17,13 +17,20 @@ import java.util.List;
 @Service
 public class AuthorService {
 
-	@Autowired
-	private AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
+
+	private final List<AuthorValidator> validators;
 
 	private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
 
+	public AuthorService(AuthorRepository authorRepository, List<AuthorValidator> validators) {
+		this.authorRepository = authorRepository;
+		this.validators = validators;
+	}
+
 	public AuthorResponseDTO create(AuthorRequestDTO dto) {
 		Author author = authorMapper.toEntity(dto);
+		validators.forEach(validator -> validator.validate(author));
 
 		authorRepository.save(author);
 
@@ -32,9 +39,11 @@ public class AuthorService {
 
 	public AuthorResponseDTO update(UpdateAuthorDTO updateDto, Long authorId) {
 		Author author = authorRepository.findById(authorId)
-				.orElseThrow( () -> new RuntimeException("Não foi encontado um Autor com o id: #" + authorId ));
+				.orElseThrow( () -> new NotFoundException("Não foi localizado nenhum autor com o id: #" + authorId ));
 
 		authorMapper.updateEntityFromDto(updateDto, author);
+
+		validators.forEach(validator -> validator.validate(author));
 
 		authorRepository.save(author);
 
