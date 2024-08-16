@@ -1,5 +1,6 @@
 package com.library.api.services;
 
+import com.library.api.modules.authors.Author;
 import org.springframework.stereotype.Service;
 
 import com.library.api.helpers.exceptions.BadRequestException;
@@ -10,6 +11,9 @@ import com.library.api.modules.books.dtos.BookResponseDTO;
 import com.library.api.modules.books.mappers.BookMapper;
 import com.library.api.repositories.AuthorRepository;
 import com.library.api.repositories.BookRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,13 +33,39 @@ public class BookService {
             throw new BadRequestException("Livro já cadastrado para o título '" + bookRequestDTO.getTitle() + "'");
         }
 
-        for( Long authorId : bookRequestDTO.getAuthorIds() ) {
-            authorRepository.findById(authorId)
-                    .orElseThrow( () -> new NotFoundException("Autor não encontrado para o ID: #" + authorId));
-        }
+        List<Author> authors = getAuthorsByIds(bookRequestDTO.getAuthorIds());
 
-        Book book = bookRepository.save(bookMapper.toEntity(bookRequestDTO));
+        Book book = bookMapper.toEntity(bookRequestDTO);
+        book.setAuthors(authors);
+
+        updateAuthorsList(authors, book);
+
+        bookRepository.save(book);
 
         return bookMapper.toResponseDTO(book);
+    }
+
+    private void updateAuthorsList(List<Author> authors, Book book) {
+        for(Author author : authors) {
+            author.addBook(book);
+        }
+    }
+
+    private List<Author> getAuthorsByIds(List<Long> ids) {
+        return ids.stream()
+                .map(id -> authorRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Autor não encontrado para o ID: #" + id)))
+                .collect(Collectors.toList());
+    }
+
+    public BookResponseDTO getBook(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Livro não encontrado para o ID: #" + id));
+
+        return bookMapper.toResponseDTO(book);
+    }
+
+    public List<BookResponseDTO> getBooks() {
+        return bookMapper.toResponseDTOs(bookRepository.findAll());
     }
 }

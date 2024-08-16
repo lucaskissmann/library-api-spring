@@ -2,14 +2,13 @@ package com.library.api.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.library.api.modules.books.dtos.BookRequestDTO;
 import com.library.api.modules.books.dtos.BookResponseDTO;
 import com.library.api.services.BookService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -26,5 +25,10 @@ public class BookController
     @PostMapping
     private ResponseEntity<BookResponseDTO> create(@Valid @RequestBody BookRequestDTO dto) {
         return created(bookService.create(dto));
+    }
+
+    @GetMapping
+    private ResponseEntity<List<BookResponseDTO>> getBooks() {
+        return ok(bookService.getBooks());
     }
 }
