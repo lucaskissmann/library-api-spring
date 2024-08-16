@@ -1,8 +1,6 @@
 package com.library.api.modules.authors.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 
@@ -26,6 +24,8 @@ public interface AuthorMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "genero", ignore = true)
+	@Mapping(source = "name", target = "name", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	@Mapping(source = "idade", target = "idade", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void updateEntityFromDto(UpdateAuthorDTO dto, @MappingTarget Author entity);
 
 	List<AuthorResponseDTO> toResponseDto(List<Author> authors);
