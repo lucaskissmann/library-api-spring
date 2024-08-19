@@ -44,6 +44,6 @@ public class BadRequestException
      */
     public HttpStatus getStatus()
     {
-        return HttpStatus.NOT_FOUND;
+        return HttpStatus.BAD_REQUEST;
     }
 }

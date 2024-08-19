@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.library.api.helpers.Error;
 import com.library.api.helpers.exceptions.BadRequestException;
-import com.library.api.helpers.exceptions.NotFoundException;
 
 @ControllerAdvice
 public class BadRequestHandler

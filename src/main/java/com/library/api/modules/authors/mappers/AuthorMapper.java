@@ -24,9 +24,8 @@ public interface AuthorMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "genero", ignore = true)
-	@Mapping(source = "name", target = "name", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-	@Mapping(source = "idade", target = "idade", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-	void updateEntityFromDto(UpdateAuthorDTO dto, @MappingTarget Author entity);
+	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	void updateEntityFromDto(@MappingTarget Author entity, UpdateAuthorDTO dto);
 
 	List<AuthorResponseDTO> toResponseDto(List<Author> authors);
 }
