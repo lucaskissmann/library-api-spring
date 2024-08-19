@@ -2,10 +2,8 @@ package com.library.api.modules.books.mappers;
 
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.dtos.AuthorResponseDTO;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import com.library.api.modules.books.dtos.UpdateBookDTO;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import com.library.api.modules.books.Book;
@@ -42,4 +40,7 @@ public interface BookMapper {
     }
 
     List<BookResponseDTO> toResponseDTOs(List<Book> books);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntityFromDto(@MappingTarget Book book, UpdateBookDTO updateDTO);
 }

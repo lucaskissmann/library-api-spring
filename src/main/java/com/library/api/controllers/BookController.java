@@ -1,5 +1,6 @@
 package com.library.api.controllers;
 
+import com.library.api.modules.books.dtos.UpdateBookDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,21 @@ public class BookController
     @GetMapping
     private ResponseEntity<List<BookResponseDTO>> getBooks() {
         return ok(bookService.getBooks());
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<BookResponseDTO> getBook(@PathVariable Long id) {
+        return ok(bookService.getBook(id));
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<BookResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateBookDTO dto) {
+        return ok(bookService.updateBook(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<BookResponseDTO> delete(@PathVariable Long id) {
+        bookService.deleteBook(id);
+        return noContent();
     }
 }

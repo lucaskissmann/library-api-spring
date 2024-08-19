@@ -1,6 +1,7 @@
 package com.library.api.modules.books.dtos;
 
 import com.library.api.modules.books.validations.ISBN;
+import com.library.api.helpers.validations.ValidDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class BookRequestDTO {
     String title;
 
     @NotBlank(message = "A data de publicação do livro deve ser informada no formato 'YYYY-MM-DD'")
+    @ValidDate
     String publicationDate;
 
     @ISBN
