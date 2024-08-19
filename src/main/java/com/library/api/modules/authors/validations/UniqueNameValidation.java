@@ -1,5 +1,6 @@
 package com.library.api.modules.authors.validations;
 
+import com.library.api.helpers.exceptions.BadRequestException;
 import com.library.api.modules.authors.Author;
 import com.library.api.repositories.AuthorRepository;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class UniqueNameValidation implements AuthorValidator {
     public void validate(Author author) {
         Optional<Author> findAuthor = authorRepository.findAuthorByName(author.getName());
         if(findAuthor.isPresent() && !Objects.equals(findAuthor.get().getId(), author.getId())) {
-            throw new RuntimeException("Autor já cadastrado para o nome '" + author.getName() + "'");
+            throw new BadRequestException("Autor já cadastrado para o nome '" + author.getName() + "'");
         }
     }
 

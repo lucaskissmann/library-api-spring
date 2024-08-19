@@ -1,6 +1,7 @@
 package com.library.api.authors.validations;
 
 import com.library.api.authors.stubs.AuthorStub;
+import com.library.api.helpers.exceptions.BadRequestException;
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.validations.AgeValidation;
 import com.library.api.modules.authors.validations.GenderValidation;
@@ -34,7 +35,7 @@ public class GenderValidationTest {
     @Test
     @DisplayName("[VALIDATION] Deve lançar exception para um gênero não válido")
     public void shouldThrowExceptionWhenGenderIsInvalid() {
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> genderValidation.validate(createAuthorInvalidGender));
 
         assertEquals(exception.getMessage(), "O gênero do Autor deve ser 'MASCULINO', 'FEMININO' ou 'OUTROS'");

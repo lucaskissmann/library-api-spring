@@ -1,6 +1,7 @@
 package com.library.api.authors.validations;
 
 import com.library.api.authors.stubs.AuthorStub;
+import com.library.api.helpers.exceptions.BadRequestException;
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.validations.AgeValidation;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,7 @@ public class AgeValidationTest {
     @Test
     @DisplayName("[VALIDATION] Deve jogar uma exception ao receber uma idade acima do limite")
     public void shouldThrowExceptionAuthorTooOld() {
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> ageValidation.validate(createAuthorTooOld));
 
         assertEquals(exception.getMessage(), "A idade do Autor deve estar entre 18 e 120.");
@@ -47,7 +48,7 @@ public class AgeValidationTest {
     @Test
     @DisplayName("[VALIDATION] Deve jogar uma exception ao receber uma idade abaixo do limite")
     public void shouldThrowExceptionAuthorTooYoung() {
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> ageValidation.validate(createAuthorTooYoung));
 
         assertEquals(exception.getMessage(), "A idade do Autor deve estar entre 18 e 120.");
@@ -56,7 +57,7 @@ public class AgeValidationTest {
     @Test
     @DisplayName("[VALIDATION] Deve jogar uma exception ao receber letras para a idade")
     public void shouldThrowExceptionAgeNotANumber() {
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> ageValidation.validate(createAuthorAgeNotANumber));
 
         assertEquals(exception.getMessage(), "A idade do Autor deve ser um número.");

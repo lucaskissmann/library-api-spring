@@ -1,6 +1,7 @@
 package com.library.api.authors.validations;
 
 import com.library.api.authors.stubs.AuthorStub;
+import com.library.api.helpers.exceptions.BadRequestException;
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.validations.GenderValidation;
 import com.library.api.modules.authors.validations.UniqueNameValidation;
@@ -52,7 +53,7 @@ public class UniqueNameValidationTest {
     public void shouldThrowExceptionWhenThereIsAnotherRegisterWithSameName() {
         when(authorRepository.findAuthorByName("Lucas")).thenReturn(Optional.of(createAuthorStub));
 
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> uniqueNameValidation.validate(createAuthorNotUniqueName));
 
         assertEquals(exception.getMessage(), "Autor já cadastrado para o nome 'Lucas'");
