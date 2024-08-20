@@ -4,6 +4,7 @@ import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.dtos.AuthorRequestDTO;
 import com.library.api.modules.authors.dtos.AuthorResponseDTO;
 import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
+import com.library.api.modules.authors.enums.Genders;
 
 public interface AuthorStub {
 	
@@ -12,7 +13,7 @@ public interface AuthorStub {
 		    	.id(1L)
 				.name("Lucas")
 				.idade("23")
-				.genero("Masculino")
+				.genero(Genders.MASCULINO)
 				.build();
 	}
 
@@ -21,7 +22,7 @@ public interface AuthorStub {
 				.id(1L)
 				.name("Lucas")
 				.idade("121")
-				.genero("Masculino")
+				.genero(Genders.MASCULINO)
 				.build();
 	}
 
@@ -30,7 +31,7 @@ public interface AuthorStub {
 				.id(1L)
 				.name("Lucas")
 				.idade("17")
-				.genero("Masculino")
+				.genero(Genders.MASCULINO)
 				.build();
 	}
 
@@ -39,7 +40,7 @@ public interface AuthorStub {
 				.id(1L)
 				.name("Lucas")
 				.idade("abc")
-				.genero("Masculino")
+				.genero(Genders.MASCULINO)
 				.build();
 	}
 
@@ -48,7 +49,7 @@ public interface AuthorStub {
 				.id(1L)
 				.name("Lucas")
 				.idade("23")
-				.genero("Masculinos")
+				.genero(null)
 				.build();
 	}
 
@@ -57,7 +58,7 @@ public interface AuthorStub {
 				.id(2L)
 				.name("Lucas")
 				.idade("24")
-				.genero("Masculino")
+				.genero(Genders.MASCULINO)
 				.build();
 	}
 
@@ -73,7 +74,7 @@ public interface AuthorStub {
 		return AuthorRequestDTO.builder()
 				.name("Lucas")
 				.idade("23")
-				.genero("Masculino")
+				.genero("MASCULINO")
 				.build();
 	}
 

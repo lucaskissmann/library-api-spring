@@ -1,5 +1,6 @@
 package com.library.api.modules.authors;
 
+import com.library.api.modules.authors.enums.Genders;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,8 @@ public class Author {
 
 	private String idade;
 
-	private String genero;
+	@Enumerated(EnumType.STRING)
+	private Genders genero;
 
 	@ManyToMany
 	@JoinTable(

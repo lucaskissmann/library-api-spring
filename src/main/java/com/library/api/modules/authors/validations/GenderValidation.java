@@ -10,7 +10,7 @@ public class GenderValidation implements AuthorValidator {
 
     @Override
     public void validate(Author author) {
-        if(!Genders.isValid(author.getGenero().toUpperCase())) {
+        if(!Genders.isValid(String.valueOf(author.getGenero()))) {
                 throw new BadRequestException("O gênero do Autor deve ser 'MASCULINO', 'FEMININO' ou 'OUTROS'");
         }
     }

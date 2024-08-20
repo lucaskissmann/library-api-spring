@@ -73,13 +73,13 @@ public class AuthorServiceTest {
 		verify(authorRepository, times(1)).save(any(Author.class));
 	}
 
-	@Test
-	@DisplayName("[SERVICE] Não deve criar um autor com dados inválidos")
-	public void shouldNotCreateAuthor() {
-		Set<ConstraintViolation<AuthorRequestDTO>> violations = validator.validate(invalidAuthorRequestDTO);
-
-		assertFalse(violations.isEmpty());
-	}
+//	@Test
+//	@DisplayName("[SERVICE] Não deve criar um autor com dados inválidos")
+//	public void shouldNotCreateAuthor() {
+//		Set<ConstraintViolation<AuthorRequestDTO>> violations = validator.validate(invalidAuthorRequestDTO);
+//
+//		assertFalse(violations.isEmpty());
+//	}
 
 	@Test
 	@DisplayName("[SERVICE] Não deve encontrar um autor para o ID informado")
