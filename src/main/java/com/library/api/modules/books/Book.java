@@ -1,5 +1,6 @@
 package com.library.api.modules.books;
 
+import com.library.api.modules.rentals.Rental;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,5 +32,9 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     private List<Author> authors = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "books")
+    private List<Rental> rentals = new ArrayList<>();
+
+    @Builder.Default
     private BookState state = BookState.AVAILABLE;
 }

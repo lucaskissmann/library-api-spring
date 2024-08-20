@@ -2,7 +2,8 @@ package com.library.api.services;
 
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.books.dtos.UpdateBookDTO;
-import com.library.api.modules.books.validations.BookValidator;
+import com.library.api.modules.books.enums.BookState;
+import com.library.api.modules.books.validations.RemoveBookValidator;
 import org.springframework.stereotype.Service;
 
 import com.library.api.helpers.exceptions.BadRequestException;
@@ -21,15 +22,16 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final AuthorService authorService;
+    private final RemoveBookValidator removeBookValidator;
     private final BookMapper bookMapper = BookMapper.INSTANCE;
-    private final List<BookValidator> validators;
 
     private BookService(BookRepository bookRepository,
                         AuthorService authorService,
-                        List<BookValidator> validators) {
+                        RemoveBookValidator removeBookValidator
+    ) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
-        this.validators = validators;
+        this.removeBookValidator = removeBookValidator;
     }
 
     public BookResponseDTO create(BookRequestDTO bookRequestDTO) {
@@ -78,9 +80,24 @@ public class BookService {
     public void deleteBook(Long id) {
         Book book = getBookById(id);
 
-//        validators.validate(book);
+        removeBookValidator.validate(book);
 
         bookRepository.delete(book);
     }
 
+    public List<Book> getBooksByIds(List<Long> bookIds) {
+        return bookRepository.findAllById(bookIds);
+    }
+
+    public void returnBooks(List<Book> books) {
+        books.forEach(book -> book.setState(BookState.AVAILABLE));
+
+        bookRepository.saveAll(books);
+    }
+
+    public void rentBooks(List<Book> books) {
+        books.forEach(book -> book.setState(BookState.UNAVAILABLE));
+
+        bookRepository.saveAll(books);
+    }
 }
