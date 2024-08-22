@@ -2,10 +2,13 @@ package com.library.api.modules.renters;
 
 import com.library.api.helpers.validations.ValidDate;
 import com.library.api.modules.authors.enums.Genders;
+import com.library.api.modules.common.entities.Person;
 import com.library.api.modules.rentals.Rental;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "renters")
@@ -13,23 +16,18 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Renter {
+@SuperBuilder
+public class Renter extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-
-    @Enumerated(EnumType.STRING)
-    private Genders gender;
 
     private String phone;
 
     private String email;
 
     @ValidDate
-    private String birthDate;
+    private LocalDate birthDate;
 
     private String cpf;
 
