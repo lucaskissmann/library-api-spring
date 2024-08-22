@@ -2,11 +2,10 @@ package com.library.api.controllers;
 
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
-import com.library.api.services.RentalService;
+import com.library.api.services.RentalServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Control;
 import java.util.List;
 
 @RestController
@@ -15,9 +14,9 @@ public class RentalController
     extends
         Controller {
 
-    private final RentalService rentalService;
+    private final RentalServiceImpl rentalService;
 
-    public RentalController(RentalService rentalService) {
+    public RentalController(RentalServiceImpl rentalService) {
         this.rentalService = rentalService;
     }
 

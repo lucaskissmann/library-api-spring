@@ -3,7 +3,7 @@ package com.library.api.controllers;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;
 import com.library.api.modules.renters.dtos.UpdateRenterDTO;
-import com.library.api.services.RenterService;
+import com.library.api.services.RenterServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +15,9 @@ public class RenterController
     extends
         Controller {
 
-    private final RenterService renterService;
+    private final RenterServiceImpl renterService;
 
-    public RenterController(RenterService renterService) {
+    public RenterController(RenterServiceImpl renterService) {
         this.renterService = renterService;
     }
 

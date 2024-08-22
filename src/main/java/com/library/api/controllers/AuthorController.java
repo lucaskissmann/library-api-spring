@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import com.library.api.modules.authors.dtos.AuthorRequestDTO;
 import com.library.api.modules.authors.dtos.AuthorResponseDTO;
 import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
-import com.library.api.services.AuthorService;
+import com.library.api.services.AuthorServiceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -21,9 +19,9 @@ public class AuthorController
 	extends
 		Controller{
 	
-	private final AuthorService authorService;
+	private final AuthorServiceImpl authorService;
 
-	public AuthorController(AuthorService authorService) {
+	public AuthorController(AuthorServiceImpl authorService) {
 		this.authorService = authorService;
 	}
 
