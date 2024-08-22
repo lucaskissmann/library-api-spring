@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class UpdateAuthorDTO {
 	String name;
-	String idade;
+	String age;
 }

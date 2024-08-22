@@ -12,9 +12,9 @@ public class AuthorRequestDTO {
 	String name;
 
 	@NotBlank(message = "A idade do Autor deve ser informada.")
-	String idade;
+	String age;
 
 	@NotBlank(message = "O gênero do Autor deve ser informado.")
-	String genero;
+	String gender;
 
 }

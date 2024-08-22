@@ -8,5 +8,5 @@ import lombok.Getter;
 public class AuthorResponseDTO {
 	Long id;
 	String name;
-	String idade;
+	String age;
 }

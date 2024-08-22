@@ -1,6 +1,7 @@
 package com.library.api.modules.authors;
 
 import com.library.api.modules.authors.enums.Genders;
+import com.library.api.modules.common.entities.Person;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,24 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.library.api.modules.books.Book;
+import lombok.experimental.SuperBuilder;
 
 @Entity(name = "authors")
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Author {
+public class Author extends Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 
-	private String name;
-
-	private String idade;
-
-	@Enumerated(EnumType.STRING)
-	private Genders genero;
+	private String age;
 
 	@ManyToMany
 	@JoinTable(
