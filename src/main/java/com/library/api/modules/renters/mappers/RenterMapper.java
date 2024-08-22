@@ -14,12 +14,14 @@ public interface RenterMapper {
     RenterMapper INSTANCE = Mappers.getMapper(RenterMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "rentals", ignore = true)
     Renter toEntity(RenterRequestDTO dto);
 
     RenterResponseDTO toResponseDto(Renter renter);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "gender", ignore = true)
+    @Mapping(target = "rentals", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(@MappingTarget Renter renter, UpdateRenterDTO updateDto);
 

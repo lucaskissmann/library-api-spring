@@ -30,7 +30,4 @@ public class BookRequestDTO {
     @NotNull(message = "A lista de IDs de autores não pode ser nula")
     @NotEmpty(message = "Deve ser informado ao menos um ID de autor")
     List<Long> authorIds;
-
-    @Builder.Default
-    BookState state = BookState.AVAILABLE;
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.library.api.modules.books.dtos.BookRequestDTO;
 import com.library.api.modules.books.dtos.BookResponseDTO;
-import com.library.api.services.BookService;
+import com.library.api.services.BookServiceImpl;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ public class BookController
     extends
         Controller{
 
-    private final BookService bookService;
+    private final BookServiceImpl bookService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookServiceImpl bookService) {
         this.bookService = bookService;
     }
 

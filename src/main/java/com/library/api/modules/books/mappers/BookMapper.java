@@ -17,9 +17,13 @@ import java.util.List;
 public interface BookMapper {
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
+    @Mapping(target = "state", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "authors", ignore = true)
+    @Mapping(target = "rentals", ignore = true)
     Book toEntity(BookRequestDTO dto);
 
-    @Mapping(target = "authors", ignore = true)
+//    @Mapping(target = "authors", ignore = true)
     BookResponseDTO toResponseDTO(Book book);
 
     @AfterMapping
@@ -31,7 +35,7 @@ public interface BookMapper {
                         AuthorResponseDTO.builder()
                                 .id(author.getId())
                                 .name(author.getName())
-                                .idade(author.getIdade())
+                                .age(author.getAge())
                                 .build());
             }
 
@@ -41,6 +45,10 @@ public interface BookMapper {
 
     List<BookResponseDTO> toResponseDTOs(List<Book> books);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "authors", ignore = true)
+    @Mapping(target = "rentals", ignore = true)
+    @Mapping(target = "state", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(@MappingTarget Book book, UpdateBookDTO updateDTO);
 }

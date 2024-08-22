@@ -12,6 +12,16 @@ import java.net.http.HttpResponse;
 
 public class ISBNValidator implements ConstraintValidator<ISBN, String> {
 
+    private final HttpClient httpClient;
+
+    public ISBNValidator() {
+        this.httpClient = HttpClient.newHttpClient();
+    }
+
+    public ISBNValidator(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
     @Override
     public boolean isValid(String isbn, ConstraintValidatorContext context) {
         if (isbn == null || isbn.isEmpty())
@@ -21,14 +31,13 @@ public class ISBNValidator implements ConstraintValidator<ISBN, String> {
     }
 
     private boolean isISBNValid(String isbn) {
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(ApplicationContext.GOOGLE_API + isbn))
                 .GET()
                 .build();
 
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return response.statusCode() == 200 && response.body().contains("\"totalItems\": 0") == false;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
