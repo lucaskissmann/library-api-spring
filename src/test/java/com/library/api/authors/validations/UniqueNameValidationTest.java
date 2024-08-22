@@ -1,9 +1,10 @@
 package com.library.api.authors.validations;
 
 import com.library.api.authors.stubs.AuthorStub;
+import com.library.api.authors.stubs.AuthorValidationStub;
 import com.library.api.helpers.exceptions.BadRequestException;
 import com.library.api.modules.authors.Author;
-import com.library.api.modules.authors.validations.GenderValidation;
+import com.library.api.modules.authors.validations.AuthorValidationDTO;
 import com.library.api.modules.authors.validations.UniqueNameValidation;
 import com.library.api.repositories.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@ActiveProfiles("test")
 public class UniqueNameValidationTest {
 
     private Author createAuthorStub;
     private Author createAuthorNotUniqueName;
+
+    private AuthorValidationDTO createAuthorValidationStub;
+    private AuthorValidationDTO createAuthorValidationNotUniqueName;
 
     @Mock
     private AuthorRepository authorRepository;
@@ -38,6 +41,9 @@ public class UniqueNameValidationTest {
 
         createAuthorStub = AuthorStub.createAuthorStub();
         createAuthorNotUniqueName = AuthorStub.createAuthorNotUniqueName();
+
+        createAuthorValidationStub = AuthorValidationStub.createAuthorValidationDTO();
+        createAuthorValidationNotUniqueName = AuthorValidationStub.createAuthorValidationDTONotUniqueName();
     }
 
     @Test
@@ -45,18 +51,18 @@ public class UniqueNameValidationTest {
     public void shouldNotThrowExceptionWhenNameIsValid() {
         when(authorRepository.findAuthorByName("Lucas")).thenReturn(Optional.empty());
 
-        uniqueNameValidation.validate(createAuthorStub);
+        uniqueNameValidation.validate(createAuthorValidationStub);
     }
 
     @Test
     @DisplayName("[VALIDATION] Deve lançar exception para um nome já registrado.")
     public void shouldThrowExceptionWhenThereIsAnotherRegisterWithSameName() {
-        when(authorRepository.findAuthorByName("Lucas")).thenReturn(Optional.of(createAuthorStub));
+        when(authorRepository.findAuthorByName(createAuthorValidationNotUniqueName.getName())).thenReturn(Optional.of(createAuthorStub));
 
         BadRequestException exception = assertThrows(BadRequestException.class,
-                () -> uniqueNameValidation.validate(createAuthorNotUniqueName));
+                () -> uniqueNameValidation.validate(createAuthorValidationNotUniqueName));
 
-        assertEquals(exception.getMessage(), "Autor já cadastrado para o nome 'Lucas'");
+        assertEquals(exception.getMessage(), "Autor já cadastrado para o nome '" + createAuthorValidationNotUniqueName.getName() + "'");
     }
 
     @Test
@@ -64,6 +70,6 @@ public class UniqueNameValidationTest {
     public void shouldNotThrowExceptionWhenDuplicateNameBelongsToTheAuthorItself() {
         when(authorRepository.findAuthorByName("Lucas")).thenReturn(Optional.of(createAuthorNotUniqueName));
 
-        uniqueNameValidation.validate(createAuthorNotUniqueName);
+        uniqueNameValidation.validate(createAuthorValidationNotUniqueName);
     }
 }

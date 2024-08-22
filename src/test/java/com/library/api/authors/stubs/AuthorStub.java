@@ -12,44 +12,8 @@ public interface AuthorStub {
 		return Author.builder()
 		    	.id(1L)
 				.name("Lucas")
-				.idade("23")
-				.genero(Genders.MASCULINO)
-				.build();
-	}
-
-	static Author createAuthorTooOld() {
-		return Author.builder()
-				.id(1L)
-				.name("Lucas")
-				.idade("121")
-				.genero(Genders.MASCULINO)
-				.build();
-	}
-
-	static Author createAuthorTooYoung() {
-		return Author.builder()
-				.id(1L)
-				.name("Lucas")
-				.idade("17")
-				.genero(Genders.MASCULINO)
-				.build();
-	}
-
-	static Author createAuthorAgeNotANumber() {
-		return Author.builder()
-				.id(1L)
-				.name("Lucas")
-				.idade("abc")
-				.genero(Genders.MASCULINO)
-				.build();
-	}
-
-	static Author createAuthorInvalidGender() {
-		return Author.builder()
-				.id(1L)
-				.name("Lucas")
-				.idade("23")
-				.genero(null)
+				.age("23")
+				.gender(Genders.MASCULINO)
 				.build();
 	}
 
@@ -57,24 +21,48 @@ public interface AuthorStub {
 		return Author.builder()
 				.id(2L)
 				.name("Lucas")
-				.idade("24")
-				.genero(Genders.MASCULINO)
+				.age("24")
+				.gender(Genders.MASCULINO)
 				.build();
 	}
 
 	static AuthorRequestDTO createInvalidAuthorRequestDTO() {
 		return AuthorRequestDTO.builder()
 				.name(null)
-				.idade(null)
-				.genero(null)
+				.age(null)
+				.gender(null)
 				.build();
 	}
 
 	static AuthorRequestDTO createAuthorRequestDTO() {
 		return AuthorRequestDTO.builder()
 				.name("Lucas")
-				.idade("23")
-				.genero("MASCULINO")
+				.age("23")
+				.gender("MASCULINO")
+				.build();
+	}
+
+	static AuthorRequestDTO createAuthorRequestDTOInvalidAge() {
+		return AuthorRequestDTO.builder()
+				.name("Lucas")
+				.age("17")
+				.gender("MASCULINO")
+				.build();
+	}
+
+	static AuthorRequestDTO createAuthorRequestDTOAgeNotANumber() {
+		return AuthorRequestDTO.builder()
+				.name("Lucas")
+				.age("abc")
+				.gender("MASCULINO")
+				.build();
+	}
+
+	static AuthorRequestDTO createAuthorRequestDTOInvalidGender() {
+		return AuthorRequestDTO.builder()
+				.name("Lucas")
+				.age("23")
+				.gender("GêneroTeste")
 				.build();
 	}
 
@@ -82,14 +70,14 @@ public interface AuthorStub {
 		return AuthorResponseDTO.builder()
 				.id(1L)
 				.name("Lucas")
-				.idade("23")
+				.age("23")
 				.build();
 	}
 
 	static UpdateAuthorDTO updateAuthorDTO() {
 		return UpdateAuthorDTO.builder()
 				.name("Lucas Updated")
-				.idade("24")
+				.age("24")
 				.build();
 	}
 }

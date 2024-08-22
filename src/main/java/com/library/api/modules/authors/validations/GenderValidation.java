@@ -6,11 +6,11 @@ import com.library.api.modules.authors.enums.Genders;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenderValidation implements AuthorValidator {
+public class GenderValidation implements AuthorValidator<AuthorValidationDTO> {
 
     @Override
-    public void validate(Author author) {
-        if(!Genders.isValid(String.valueOf(author.getGenero()))) {
+    public void validate(AuthorValidationDTO authorDTO) {
+        if(authorDTO.getGender() != null && !Genders.isValid(authorDTO.getGender())) {
                 throw new BadRequestException("O gênero do Autor deve ser 'MASCULINO', 'FEMININO' ou 'OUTROS'");
         }
     }

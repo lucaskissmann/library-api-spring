@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-public class UniqueNameValidation implements AuthorValidator {
+public class UniqueNameValidation implements AuthorValidator<AuthorValidationDTO> {
 
     private final AuthorRepository authorRepository;
 
@@ -18,10 +18,10 @@ public class UniqueNameValidation implements AuthorValidator {
     }
 
     @Override
-    public void validate(Author author) {
-        Optional<Author> findAuthor = authorRepository.findAuthorByName(author.getName());
-        if(findAuthor.isPresent() && !Objects.equals(findAuthor.get().getId(), author.getId())) {
-            throw new BadRequestException("Autor já cadastrado para o nome '" + author.getName() + "'");
+    public void validate(AuthorValidationDTO authorDTO) {
+        Optional<Author> findAuthor = authorRepository.findAuthorByName(authorDTO.getName());
+        if(findAuthor.isPresent() && !Objects.equals(findAuthor.get().getId(), authorDTO.getId())) {
+            throw new BadRequestException("Autor já cadastrado para o nome '" + authorDTO.getName() + "'");
         }
     }
 

@@ -5,12 +5,15 @@ import com.library.api.modules.authors.Author;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AgeValidation implements AuthorValidator {
+public class AgeValidation implements AuthorValidator<AuthorValidationDTO> {
 
     @Override
-    public void validate(Author author) {
+    public void validate(AuthorValidationDTO author) {
+        if(author.getAge() == null)
+            return;
+
         try {
-            int age = Integer.parseInt(author.getIdade());
+            int age = Integer.parseInt(author.getAge());
             if (age < 18 || age > 120) {
                 throw new BadRequestException("A idade do Autor deve estar entre 18 e 120.");
             }
