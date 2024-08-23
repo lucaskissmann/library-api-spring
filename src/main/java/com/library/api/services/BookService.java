@@ -10,10 +10,11 @@ import java.util.List;
 public interface BookService {
     BookResponseDTO create(BookRequestDTO bookRequestDTO);
     BookResponseDTO getBook(Long id);
-    List<BookResponseDTO> getBooks();
+    List<BookResponseDTO> getBooks(Long authorId, String title);
     List<Book> getBooksByIds(List<Long> bookIds);
     void returnBooks(List<Book> books);
     void rentBooks(List<Book> books);
     BookResponseDTO updateBook(Long id, UpdateBookDTO updateDTO);
     void deleteBook(Long id);
+    void validateAvailabilityOfBooks(List<Book> books);
 }

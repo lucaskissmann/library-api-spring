@@ -29,8 +29,9 @@ public class BookController
     }
 
     @GetMapping
-    private ResponseEntity<List<BookResponseDTO>> getBooks() {
-        return ok(bookService.getBooks());
+    private ResponseEntity<List<BookResponseDTO>> getBooks(@RequestParam(required = false) Long authorId,
+                                                           @RequestParam(required = false) String title) {
+        return ok(bookService.getBooks(authorId, title));
     }
 
     @GetMapping("/{id}")
@@ -39,7 +40,7 @@ public class BookController
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<BookResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateBookDTO dto) {
+    private ResponseEntity<BookResponseDTO> update(@Valid @PathVariable Long id, @Valid @RequestBody UpdateBookDTO dto) {
         return ok(bookService.updateBook(id, dto));
     }
 

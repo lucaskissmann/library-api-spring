@@ -14,7 +14,9 @@ import com.library.api.modules.books.dtos.BookResponseDTO;
 import com.library.api.modules.books.mappers.BookMapper;
 import com.library.api.repositories.BookRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,8 +60,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDTO> getBooks() {
-        return bookMapper.toResponseDTOs(bookRepository.findAll());
+    public List<BookResponseDTO> getBooks(Long authorId, String title) {
+        Author author = null;
+        if(authorId != null) {
+            author = authorService.getAuthorById(authorId);
+        }
+
+        return bookMapper.toResponseDTOs(bookRepository.findByAuthorAndTitle(author, title));
     }
 
     private Book getBookById(Long id) {
@@ -96,7 +103,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByIds(List<Long> bookIds) {
-        return bookRepository.findAllById(bookIds);
+        return bookIds.stream()
+                    .map(this::getBookById)
+                    .collect(Collectors.toList());
     }
 
     @Override
@@ -111,5 +120,14 @@ public class BookServiceImpl implements BookService {
         books.forEach(book -> book.setState(BookState.UNAVAILABLE));
 
         bookRepository.saveAll(books);
+    }
+
+    @Override
+    public void validateAvailabilityOfBooks(List<Book> books) {
+        books.forEach(b -> {
+            if(!b.getState().equals(BookState.AVAILABLE)) {
+                throw new BadRequestException("O livro de ID '" + b.getId() + "' não está disponível para locação");
+            }
+        });
     }
 }

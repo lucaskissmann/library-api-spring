@@ -21,9 +21,9 @@ public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "authors", ignore = true)
     @Mapping(target = "rentals", ignore = true)
+    @Mapping(target = "isbn", source = "dto.isbn", qualifiedByName = "cleanISBN")
     Book toEntity(BookRequestDTO dto);
 
-//    @Mapping(target = "authors", ignore = true)
     BookResponseDTO toResponseDTO(Book book);
 
     @AfterMapping
@@ -49,6 +49,15 @@ public interface BookMapper {
     @Mapping(target = "authors", ignore = true)
     @Mapping(target = "rentals", ignore = true)
     @Mapping(target = "state", ignore = true)
+    @Mapping(target = "isbn", source = "updateDTO.isbn", qualifiedByName = "cleanISBN")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(@MappingTarget Book book, UpdateBookDTO updateDTO);
+
+    @Named("cleanISBN")
+    default String cleanISBN(String isbn) {
+        if (isbn != null && !isbn.isEmpty()) {
+            return isbn.replaceAll("\\D", "");
+        }
+        return null;
+    }
 }

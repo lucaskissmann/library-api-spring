@@ -67,7 +67,7 @@ public class BookServiceTest {
         BookResponseDTO dto = bookService.create(bookRequestStub);
 
         assertEquals(bookRequestStub.getTitle(), dto.getTitle());
-        assertEquals(bookRequestStub.getIsbn(), dto.getIsbn());
+        assertEquals(bookRequestStub.getIsbn().replaceAll("\\D", ""), dto.getIsbn());
         assertEquals(bookRequestStub.getPublicationDate(), dto.getPublicationDate());
         assertEquals(bookRequestStub.getAuthorIds().get(0), dto.getAuthors().get(0).getId());
         assertEquals(BookState.AVAILABLE, dto.getState());
@@ -109,9 +109,9 @@ public class BookServiceTest {
     @Test
     @DisplayName("[SERVICE] Deve encontrar uma lista de livros")
     public void shouldFindAllBooks() {
-        when(bookRepository.findAll()).thenReturn(List.of(bookStub));
+        when(bookRepository.findByAuthorAndTitle(null, null)).thenReturn(List.of(bookStub));
 
-        List<BookResponseDTO> foundBooks = bookService.getBooks();
+        List<BookResponseDTO> foundBooks = bookService.getBooks(null, null);
 
         assertNotNull(foundBooks);
         assertEquals(foundBooks.size(), 1);
