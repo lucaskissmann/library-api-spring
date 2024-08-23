@@ -29,8 +29,11 @@ public class RentalServiceImpl implements RentalService {
     @Override
     public RentalResponseDTO create(RentalRequestDTO dto) {
         List<Book> books = bookService.getBooksByIds(dto.getBookIds());
+        bookService.validateAvailabilityOfBooks(books);
+
         Rental rental = rentalMapper.toEntity(dto);
 
+        rental.setIsReturned(false);
         rental.setRenter(renterService.getRenterById(dto.getRenterId()));
         rental.setBooks(books);
 

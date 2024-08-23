@@ -3,6 +3,7 @@ package com.library.api.controllers;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
 import com.library.api.services.RentalServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class RentalController
     }
 
     @PostMapping()
-    public ResponseEntity<RentalResponseDTO> create(@RequestBody RentalRequestDTO dto) {
+    public ResponseEntity<RentalResponseDTO> create(@Valid @RequestBody RentalRequestDTO dto) {
         return created(rentalService.create(dto));
     }
 
@@ -39,6 +40,4 @@ public class RentalController
     public ResponseEntity<RentalResponseDTO> returnRental(@PathVariable Long id) {
         return ok(rentalService.returnBooks(id));
     }
-
-
 }

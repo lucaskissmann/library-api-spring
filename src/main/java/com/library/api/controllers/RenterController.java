@@ -4,6 +4,7 @@ import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;
 import com.library.api.modules.renters.dtos.UpdateRenterDTO;
 import com.library.api.services.RenterServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +23,12 @@ public class RenterController
     }
 
     @PostMapping()
-    public ResponseEntity<RenterResponseDTO> create(@RequestBody RenterRequestDTO dto) {
+    public ResponseEntity<RenterResponseDTO> create(@Valid @RequestBody RenterRequestDTO dto) {
         return created(renterService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RenterResponseDTO> update(@RequestBody UpdateRenterDTO dto, @PathVariable Long id) {
+    public ResponseEntity<RenterResponseDTO> update(@Valid @RequestBody UpdateRenterDTO dto, @PathVariable Long id) {
         return ok(renterService.update(dto, id));
     }
 

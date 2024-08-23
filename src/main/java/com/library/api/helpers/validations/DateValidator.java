@@ -20,11 +20,6 @@ public class DateValidator implements ConstraintValidator<ValidDate, String> {
 
         try {
             LocalDate formattedDate = LocalDate.parse(date, FORMATTER);
-
-            if (ApplicationContext.today().isBefore(formattedDate)) {
-                throw new BadRequestException("A data de publicação do livro deve ser anterior ao dia atual.");
-            }
-
             return true;
         } catch (DateTimeParseException e) {
             return false;
