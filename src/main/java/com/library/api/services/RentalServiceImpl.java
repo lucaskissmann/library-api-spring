@@ -6,7 +6,6 @@ import com.library.api.modules.rentals.Rental;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
 import com.library.api.modules.rentals.mappers.RentalMapper;
-import com.library.api.repositories.BookRepository;
 import com.library.api.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class RentalServiceImpl implements RentalService {
     private final BookServiceImpl bookService;
     private final RenterServiceImpl renterService;
 
-    public RentalServiceImpl(RentalRepository rentalRepository, BookServiceImpl bookService, BookRepository bookRepository, RenterServiceImpl renterService) {
+    public RentalServiceImpl(RentalRepository rentalRepository, BookServiceImpl bookService, RenterServiceImpl renterService) {
         this.rentalRepository = rentalRepository;
         this.bookService = bookService;
         this.renterService = renterService;

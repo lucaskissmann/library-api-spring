@@ -14,7 +14,6 @@ import com.library.api.modules.books.dtos.BookResponseDTO;
 import com.library.api.modules.books.mappers.BookMapper;
 import com.library.api.repositories.BookRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

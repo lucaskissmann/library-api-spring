@@ -29,7 +29,7 @@ public class AuthorControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/authors";
+    private final String PATH = "/authors";
 
     private final AuthorRequestDTO mockAuthorDTO = AuthorStub.createAuthorRequestDTO();
 

@@ -1,7 +1,5 @@
 package com.library.api.modules.renters;
 
-import com.library.api.helpers.validations.ValidDate;
-import com.library.api.modules.authors.enums.Genders;
 import com.library.api.modules.common.entities.Person;
 import com.library.api.modules.rentals.Rental;
 import jakarta.persistence.*;

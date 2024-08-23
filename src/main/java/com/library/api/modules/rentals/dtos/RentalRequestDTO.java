@@ -2,7 +2,6 @@ package com.library.api.modules.rentals.dtos;
 
 import com.library.api.context.ApplicationContext;
 import com.library.api.helpers.validations.ValidDate;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

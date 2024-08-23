@@ -1,18 +1,12 @@
 package com.library.api.helpers.validations;
 
-import com.library.api.helpers.exceptions.BadRequestException;
-import com.library.api.repositories.AuthorRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 public class CPFValidator
     implements
         ConstraintValidator<CPF, String> {
-
-    @Autowired
-    private AuthorRepository authorRepository;
 
     @Override
     public boolean isValid( String value, ConstraintValidatorContext context )

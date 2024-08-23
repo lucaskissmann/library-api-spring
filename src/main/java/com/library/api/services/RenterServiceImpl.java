@@ -1,7 +1,6 @@
 package com.library.api.services;
 
 import com.library.api.helpers.exceptions.NotFoundException;
-import com.library.api.modules.authors.validations.AuthorValidationDTO;
 import com.library.api.modules.renters.Renter;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;

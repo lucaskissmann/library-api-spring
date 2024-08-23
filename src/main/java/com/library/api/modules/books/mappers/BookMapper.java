@@ -26,22 +26,22 @@ public interface BookMapper {
 
     BookResponseDTO toResponseDTO(Book book);
 
-    @AfterMapping
-    default void mapAuthorsToAuthorResponseDTOs(@MappingTarget BookResponseDTO bookResponseDTO, Book book) {
-        if (book.getAuthors() != null) {
-            List<AuthorResponseDTO> authorResponseDTOs = new ArrayList<>();
-            for (Author author : book.getAuthors()) {
-                authorResponseDTOs.add(
-                        AuthorResponseDTO.builder()
-                                .id(author.getId())
-                                .name(author.getName())
-                                .age(author.getAge())
-                                .build());
-            }
-
-            bookResponseDTO.setAuthors(authorResponseDTOs);
-        }
-    }
+//    @AfterMapping
+//    default void mapAuthorsToAuthorResponseDTOs(@MappingTarget BookResponseDTO bookResponseDTO, Book book) {
+//        if (book.getAuthors() != null) {
+//            List<AuthorResponseDTO> authorResponseDTOs = new ArrayList<>();
+//            for (Author author : book.getAuthors()) {
+//                authorResponseDTOs.add(
+//                        AuthorResponseDTO.builder()
+//                                .id(author.getId())
+//                                .name(author.getName())
+//                                .age(author.getAge())
+//                                .build());
+//            }
+//
+//            bookResponseDTO.setAuthors(authorResponseDTOs);
+//        }
+//    }
 
     List<BookResponseDTO> toResponseDTOs(List<Book> books);
 

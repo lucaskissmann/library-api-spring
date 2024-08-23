@@ -3,13 +3,11 @@ package com.library.api.modules.authors.mappers;
 import com.library.api.modules.authors.enums.Genders;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
-import org.springframework.http.ResponseEntity;
 
 import com.library.api.modules.authors.Author;
 import com.library.api.modules.authors.dtos.AuthorRequestDTO;
 import com.library.api.modules.authors.dtos.AuthorResponseDTO;
 import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 

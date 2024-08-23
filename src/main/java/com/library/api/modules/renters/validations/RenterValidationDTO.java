@@ -1,7 +1,5 @@
 package com.library.api.modules.renters.validations;
 
-import com.library.api.modules.authors.dtos.AuthorRequestDTO;
-import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.UpdateRenterDTO;
 import lombok.Getter;

@@ -5,10 +5,8 @@ import com.library.api.modules.renters.Renter;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;
 import com.library.api.modules.renters.dtos.UpdateRenterDTO;
-import com.library.api.rentals.stubs.RentalStub;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public interface RenterStub {
 
@@ -21,8 +19,6 @@ public interface RenterStub {
                 .email("lk@mail.com")
                 .gender(Genders.MASCULINO)
                 .phone("51 998753332")
-                // stackoverflow
-//                 .rentals(List.of(RentalStub.createRentalStub()))
                 .build();
     }
 

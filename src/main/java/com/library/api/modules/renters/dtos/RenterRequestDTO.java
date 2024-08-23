@@ -2,7 +2,6 @@ package com.library.api.modules.renters.dtos;
 
 import com.library.api.helpers.validations.CPF;
 import com.library.api.helpers.validations.ValidDate;
-import com.library.api.modules.authors.enums.Genders;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

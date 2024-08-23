@@ -1,11 +1,7 @@
 package com.library.api.modules.renters.validations;
 
 import com.library.api.helpers.exceptions.BadRequestException;
-import com.library.api.modules.authors.Author;
-import com.library.api.modules.authors.validations.AuthorValidationDTO;
-import com.library.api.modules.authors.validations.AuthorValidator;
 import com.library.api.modules.renters.Renter;
-import com.library.api.repositories.AuthorRepository;
 import com.library.api.repositories.RenterRepository;
 import org.springframework.stereotype.Component;
 

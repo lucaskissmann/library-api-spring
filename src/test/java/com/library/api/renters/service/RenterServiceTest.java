@@ -2,7 +2,6 @@ package com.library.api.renters.service;
 
 import com.library.api.helpers.exceptions.NotFoundException;
 import com.library.api.modules.authors.Author;
-import com.library.api.modules.authors.validations.AuthorValidator;
 import com.library.api.modules.renters.Renter;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;
@@ -158,8 +157,6 @@ public class RenterServiceTest {
     @Test
     @DisplayName("[SERVICE] Deve remover um locatário para o ID informado")
     public void shouldRemoveRenter() {
-        Long renterId = 1L;
-
         when(renterRepository.findById(renterStub.getId())).thenReturn(Optional.of(renterStub));
         doNothing().when(removeRenterValidator).validate(any(Renter.class));
 

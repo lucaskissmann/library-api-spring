@@ -1,7 +1,5 @@
 package com.library.api.helpers.validations;
 
-import com.library.api.context.ApplicationContext;
-import com.library.api.helpers.exceptions.BadRequestException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -19,7 +17,7 @@ public class DateValidator implements ConstraintValidator<ValidDate, String> {
         }
 
         try {
-            LocalDate formattedDate = LocalDate.parse(date, FORMATTER);
+            LocalDate.parse(date, FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
             return false;
