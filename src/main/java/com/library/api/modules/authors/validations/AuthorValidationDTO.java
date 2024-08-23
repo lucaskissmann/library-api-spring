@@ -14,12 +14,14 @@ public class AuthorValidationDTO { ;
     private String name;
     private String age;
     private String gender;
+    private String cpf;
 
     public AuthorValidationDTO(AuthorRequestDTO dto) {
         this.id = null;
         this.name = dto.getName();
         this.age = dto.getAge();
         this.gender = dto.getGender();
+        this.cpf = dto.getCpf();
     }
 
     public AuthorValidationDTO(UpdateAuthorDTO dto, Long id) {
@@ -27,5 +29,6 @@ public class AuthorValidationDTO { ;
         this.name = dto.getName();
         this.age = dto.getAge();
         this.gender = null;
+        this.cpf = dto.getCpf();
     }
 }

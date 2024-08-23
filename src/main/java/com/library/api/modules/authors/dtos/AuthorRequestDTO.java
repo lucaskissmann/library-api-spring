@@ -1,5 +1,6 @@
 package com.library.api.modules.authors.dtos;
 
+import com.library.api.helpers.validations.CPF;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +17,9 @@ public class AuthorRequestDTO {
 
 	@NotBlank(message = "O gênero do Autor deve ser informado.")
 	String gender;
+
+	@NotBlank(message = "O CPF do Autor deve ser informado")
+	@CPF
+	String cpf;
 
 }

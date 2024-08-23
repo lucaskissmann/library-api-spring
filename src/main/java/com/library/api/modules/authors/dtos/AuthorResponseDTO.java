@@ -9,4 +9,5 @@ public class AuthorResponseDTO {
 	Long id;
 	String name;
 	String age;
+	String cpf;
 }

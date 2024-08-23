@@ -32,14 +32,14 @@ public class AuthorController
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<AuthorResponseDTO> update(@RequestBody UpdateAuthorDTO updateDto, @PathVariable Long id) {
+	public ResponseEntity<AuthorResponseDTO> update(@Valid @RequestBody UpdateAuthorDTO updateDto, @PathVariable Long id) {
 		AuthorResponseDTO updatedAuthor = authorService.update(updateDto, id);
 		return ok(updatedAuthor);
   	}
 
 	@GetMapping
-	public ResponseEntity<List<AuthorResponseDTO>> getAuthors() {
-		return ok(authorService.getAuthors());
+	public ResponseEntity<List<AuthorResponseDTO>> getAuthors(@RequestParam(required = false) String name) {
+		return ok(authorService.getAuthors(name));
 	}
 
 	@GetMapping("/{id}")

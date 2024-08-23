@@ -14,6 +14,7 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("23")
 				.gender(Genders.MASCULINO)
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -23,6 +24,7 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("24")
 				.gender(Genders.MASCULINO)
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -31,6 +33,7 @@ public interface AuthorStub {
 				.name(null)
 				.age(null)
 				.gender(null)
+				.cpf(null)
 				.build();
 	}
 
@@ -39,6 +42,16 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("23")
 				.gender("MASCULINO")
+				.cpf("79187561000")
+				.build();
+	}
+
+	static AuthorRequestDTO createAuthorRequestDTONotUniqueName() {
+		return AuthorRequestDTO.builder()
+				.name("Lucas")
+				.age("23")
+				.gender("MASCULINO")
+				.cpf("48641727060")
 				.build();
 	}
 
@@ -47,6 +60,7 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("17")
 				.gender("MASCULINO")
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -55,6 +69,7 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("abc")
 				.gender("MASCULINO")
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -63,6 +78,7 @@ public interface AuthorStub {
 				.name("Lucas")
 				.age("23")
 				.gender("GêneroTeste")
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -71,6 +87,7 @@ public interface AuthorStub {
 				.id(1L)
 				.name("Lucas")
 				.age("23")
+				.cpf("79187561000")
 				.build();
 	}
 
@@ -78,6 +95,7 @@ public interface AuthorStub {
 		return UpdateAuthorDTO.builder()
 				.name("Lucas Updated")
 				.age("24")
+				.cpf("79187561000")
 				.build();
 	}
 }

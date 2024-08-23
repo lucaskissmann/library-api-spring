@@ -53,7 +53,7 @@ public class AuthorServiceImpl implements AuthorService {
 		return authorMapper.toResponseDTO(author);
 	}
 
-	private Author getAuthorById(Long authorId) {
+	protected Author getAuthorById(Long authorId) {
 		return authorRepository.findById(authorId)
 				.orElseThrow(() -> new NotFoundException("Não foi localizado nenhum autor com o id: #" + authorId));
 	}
@@ -66,8 +66,12 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public List<AuthorResponseDTO> getAuthors() {
-		return authorMapper.toResponseDto(authorRepository.findAll());
+	public List<AuthorResponseDTO> getAuthors(String name) {
+		if(name == null) {
+			return authorMapper.toResponseDto(authorRepository.findAll());
+		} else {
+			return authorMapper.toResponseDto(authorRepository.findByNameContaining(name));
+		}
 	}
 
 	@Override
