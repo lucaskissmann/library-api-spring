@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
+import com.library.api.modules.authors.validations.AuthorValidationDTO;
 import com.library.api.modules.authors.validations.AuthorValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -43,7 +44,7 @@ public class AuthorServiceTest {
 	private AuthorRepository authorRepository;
 
 	@Mock
-	private List<AuthorValidator> validators;
+	private List<AuthorValidator<AuthorValidationDTO>> validators;
 
 	@InjectMocks
 	private AuthorServiceImpl authorService;
@@ -141,7 +142,7 @@ public class AuthorServiceTest {
 
 		when(authorRepository.findAll()).thenReturn(authorsStub);
 
-		List<AuthorResponseDTO> authors = authorService.getAuthors();
+		List<AuthorResponseDTO> authors = authorService.getAuthors(null);
 
 		assertNotNull(authors);
 		assertEquals(authorsStub.size(), authors.size());

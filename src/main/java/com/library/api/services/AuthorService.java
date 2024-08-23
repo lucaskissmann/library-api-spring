@@ -12,7 +12,7 @@ public interface AuthorService {
     AuthorResponseDTO create(AuthorRequestDTO dto);
     AuthorResponseDTO update(UpdateAuthorDTO updateDto, Long authorId);
     void updateAuthorsList(List<Author> authors, Book book);
-    List<AuthorResponseDTO> getAuthors();
+    List<AuthorResponseDTO> getAuthors(String name);
     AuthorResponseDTO getAuthor(Long authorId);
     List<Author> getAuthorsByIds(List<Long> ids);
     void deleteAuthor(Long authorId);
