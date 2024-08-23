@@ -17,27 +17,6 @@ public class BadRequestException
     }
 
     /**
-     * BadRequestException
-     *
-     * @param cause Throwable
-     */
-    public BadRequestException(Throwable cause )
-    {
-        super( cause );
-    }
-
-    /**
-     * BadRequestException
-     *
-     * @param message String
-     * @param cause Throwable
-     */
-    public BadRequestException(String message, Throwable cause )
-    {
-        super( message, cause );
-    }
-
-    /**
      * getStatus
      *
      * @return getStatus

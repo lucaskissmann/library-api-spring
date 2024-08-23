@@ -1,9 +1,9 @@
+DELETE FROM book_mappings;
+DELETE FROM rental_mappings;
 DELETE FROM authors;
 DELETE FROM books;
-DELETE FROM book_mappings;
 DELETE FROM rentals;
 DELETE FROM renters;
-DELETE FROM rental_mappings;
 
 ALTER TABLE authors ALTER COLUMN id RESTART WITH 1;
 ALTER TABLE books ALTER COLUMN id RESTART WITH 1;

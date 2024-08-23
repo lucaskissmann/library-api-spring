@@ -17,7 +17,7 @@ public interface BookStub {
         return Book.builder()
                 .id(1L)
                 .title("1984")
-                .isbn("978-3-16-148410-0")
+                .isbn("9783161484100")
                 .publicationDate(LocalDate.parse("1996-06-08"))
                 .state(BookState.AVAILABLE)
                 .authors(List.of(AuthorStub.createAuthorStub()))
@@ -37,7 +37,7 @@ public interface BookStub {
                 .title("1984")
                 .publicationDate("1996-06-08")
                 .authorIds(List.of(1L))
-                .isbn("978-3-16-148410-0")
+                .isbn("9783161484100")
                 .build();
     }
 
@@ -55,7 +55,7 @@ public interface BookStub {
                 .title("1984")
                 .publicationDate("1996-06-08")
                 .authors(List.of(AuthorStub.createAuthorResponseDTO()))
-                .isbn("978-3-16-148410-0")
+                .isbn("9783161484100")
                 .state(BookState.AVAILABLE)
                 .build();
     }
@@ -64,7 +64,8 @@ public interface BookStub {
         return UpdateBookDTO.builder()
                 .title("1984 updated")
                 .publicationDate("2000-01-01")
-                .authorIds(List.of(1L, 2L))
+                .authorIds(List.of(1L))
+                .isbn("9783161484100")
                 .build();
     }
 }

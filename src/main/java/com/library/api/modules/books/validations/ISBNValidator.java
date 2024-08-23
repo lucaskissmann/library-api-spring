@@ -27,21 +27,22 @@ public class ISBNValidator implements ConstraintValidator<ISBN, String> {
         if (isbn == null || isbn.isEmpty())
             return true;
 
-        return isISBNValid(isbn);
+        try {
+            return isISBNValid(isbn);
+        } catch (Exception e) {
+            //caso a API caia, o isbn não será validado
+            return true;
+        }
     }
 
-    private boolean isISBNValid(String isbn) {
+    private boolean isISBNValid(String isbn) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(ApplicationContext.GOOGLE_API + isbn))
                 .GET()
                 .build();
 
-        try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return response.statusCode() == 200 && response.body().contains("\"totalItems\": 0") == false;
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
+
     }
 }

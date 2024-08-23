@@ -7,4 +7,4 @@ VALUES (
     CURRENT_DATE,
     '0',
     '1984'
-)
+);

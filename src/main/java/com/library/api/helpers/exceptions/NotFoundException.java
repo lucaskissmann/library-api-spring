@@ -17,27 +17,6 @@ public class NotFoundException
     }
 
     /**
-     * NotFoundException
-     *
-     * @param cause Throwable
-     */
-    public NotFoundException( Throwable cause )
-    {
-        super( cause );
-    }
-
-    /**
-     * NotFoundException
-     *
-     * @param message String
-     * @param cause Throwable
-     */
-    public NotFoundException( String message, Throwable cause )
-    {
-        super( message, cause );
-    }
-
-    /**
      * getStatus
      *
      * @return getStatus
