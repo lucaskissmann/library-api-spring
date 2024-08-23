@@ -26,10 +26,7 @@ public class Renter extends Person {
 
     private String email;
 
-    @ValidDate
     private LocalDate birthDate;
-
-    private String cpf;
 
     @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL)
     private List<Rental> rentals;

@@ -21,4 +21,6 @@ public class Person {
 
     @Enumerated(EnumType.STRING)
     private Genders gender;
+
+    private String cpf;
 }

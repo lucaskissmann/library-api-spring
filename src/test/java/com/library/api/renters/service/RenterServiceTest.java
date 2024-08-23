@@ -1,11 +1,15 @@
 package com.library.api.renters.service;
 
 import com.library.api.helpers.exceptions.NotFoundException;
+import com.library.api.modules.authors.Author;
+import com.library.api.modules.authors.validations.AuthorValidator;
 import com.library.api.modules.renters.Renter;
 import com.library.api.modules.renters.dtos.RenterRequestDTO;
 import com.library.api.modules.renters.dtos.RenterResponseDTO;
 import com.library.api.modules.renters.dtos.UpdateRenterDTO;
 import com.library.api.modules.renters.validations.RemoveRenterValidator;
+import com.library.api.modules.renters.validations.RenterValidationDTO;
+import com.library.api.modules.renters.validations.RenterValidator;
 import com.library.api.renters.stubs.RenterStub;
 import com.library.api.repositories.RenterRepository;
 import com.library.api.services.RenterServiceImpl;
@@ -43,6 +47,9 @@ public class RenterServiceTest {
     @Mock
     private RemoveRenterValidator removeRenterValidator;
 
+    @Mock
+    private List<RenterValidator<RenterValidationDTO>> validators;
+
     @InjectMocks
     private RenterServiceImpl renterService;
 
@@ -50,6 +57,10 @@ public class RenterServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+        RenterValidator mockValidator = mock(RenterValidator.class);
+        doNothing().when(mockValidator).validate(any(Author.class));
+        validators.add(mockValidator);
 
         renterStub = RenterStub.createRenterStub();
         renterRequestStub = RenterStub.createRenterRequestDTO();
