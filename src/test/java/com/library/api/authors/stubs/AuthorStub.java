@@ -6,6 +6,8 @@ import com.library.api.modules.authors.dtos.AuthorResponseDTO;
 import com.library.api.modules.authors.dtos.UpdateAuthorDTO;
 import com.library.api.modules.authors.enums.Genders;
 
+import java.util.ArrayList;
+
 public interface AuthorStub {
 	
 	static Author createAuthorStub() {
@@ -15,6 +17,7 @@ public interface AuthorStub {
 				.age("23")
 				.gender(Genders.MASCULINO)
 				.cpf("79187561000")
+				.books(new ArrayList<>())
 				.build();
 	}
 
@@ -95,6 +98,14 @@ public interface AuthorStub {
 		return UpdateAuthorDTO.builder()
 				.name("Lucas Updated")
 				.age("24")
+				.cpf("79187561000")
+				.build();
+	}
+
+	static UpdateAuthorDTO updateAuthorDTOInvalidAge() {
+		return UpdateAuthorDTO.builder()
+				.name("Lucas Updated")
+				.age("17")
 				.cpf("79187561000")
 				.build();
 	}

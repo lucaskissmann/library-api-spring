@@ -148,6 +148,31 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("[GET] Deve retornar 200 e uma lista de todos os Autores quando nenhum parâmetro é fornecido")
+    @SqlGroup({
+            @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
+            @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
+    })
+    public void shouldReturn200_GetAllAuthors() throws Exception {
+        mockMvc.perform(get(PATH))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @DisplayName("[GET] Deve retornar 200 e uma lista de Autores filtrada por nome")
+    @SqlGroup({
+            @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
+            @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
+    })
+    public void shouldReturn200_GetAuthorsByName() throws Exception {
+        mockMvc.perform(get(PATH)
+                        .param("name", "Lucas"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Lucas"));
+    }
+
+    @Test
     @DisplayName("[PUT] Deve retornar um 200 ao atualizar um Autor para o ID informado")
     @SqlGroup({
             @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
@@ -179,6 +204,43 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$.code").value("404"))
                 .andExpect(jsonPath("$.status").value("Not Found"))
                 .andExpect(jsonPath("$.message").value("Não foi localizado nenhum autor com o id: #" + id));
+    }
+
+    @Test
+    @DisplayName("[PUT] Deve retornar 400 ao tentar atualizar um Autor com dados inválidos")
+    public void shouldReturn400_UpdateAuthorWithInvalidData() throws Exception {
+        final UpdateAuthorDTO mockUpdateAuthorDTO = AuthorStub.updateAuthorDTOInvalidAge();
+
+        mockMvc.perform(put(PATH + "/{authorId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json(mockUpdateAuthorDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("A idade do Autor deve estar entre 18 e 120."));
+    }
+
+    @Test
+    @DisplayName("[DELETE] Deve retornar 404 ao tentar deletar um Autor com ID inexistente")
+    public void shouldReturn404_DeleteAuthorWithNonexistentId() throws Exception {
+
+        mockMvc.perform(delete(PATH + "/{authorId}", 1))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("404"))
+                .andExpect(jsonPath("$.status").value("Not Found"))
+                .andExpect(jsonPath("$.message").value("Não foi localizado nenhum autor com o id: #" + 1));
+    }
+
+    @Test
+    @DisplayName("[DELETE] Deve retornar 204 ao deletar um Autor com ID válido")
+    @SqlGroup({
+            @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
+            @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
+    })
+    public void shouldReturn204_DeleteAuthorWithValidId() throws Exception {
+
+        mockMvc.perform(delete(PATH + "/{authorId}", 1))
+                .andExpect(status().isNoContent());
     }
 
 
