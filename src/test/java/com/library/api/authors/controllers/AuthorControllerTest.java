@@ -42,7 +42,24 @@ public class AuthorControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value(mockAuthorDTO.getName()))
-                .andExpect(jsonPath("$.age").value(mockAuthorDTO.getAge()));
+                .andExpect(jsonPath("$.age").value(mockAuthorDTO.getAge()))
+                .andExpect(jsonPath("$.cpf").value(mockAuthorDTO.getCpf()));
+    }
+
+    @Test
+    @DisplayName("[POST] Deve retornar um 400 ao tentar criar Autor com CPF duplicado")
+    @SqlGroup({
+            @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
+            @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
+    })
+    public void shouldReturn400_CreateAuthorInvalidCPF() throws Exception {
+        mockMvc.perform(post(PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content( json(mockAuthorDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("Já existe um Autor cadastrado para o cpf '" + mockAuthorDTO.getCpf() + "'"));
     }
 
     @Test
@@ -52,6 +69,7 @@ public class AuthorControllerTest {
             @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
     })
     public void shouldReturn400_CreateAuthorInvalidName() throws Exception {
+        final AuthorRequestDTO mockAuthorDTO = AuthorStub.createAuthorRequestDTONotUniqueName();
         mockMvc.perform(post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content( json(mockAuthorDTO)))
@@ -115,7 +133,8 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value(mockAuthorResponseDTO.getName()))
-                .andExpect(jsonPath("$.age").value(mockAuthorResponseDTO.getAge()));
+                .andExpect(jsonPath("$.age").value(mockAuthorResponseDTO.getAge()))
+                .andExpect(jsonPath("$.cpf").value(mockAuthorResponseDTO.getCpf()));
     }
 
     @Test
@@ -143,7 +162,8 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value(mockUpdateAuthorDTO.getName()))
-                .andExpect(jsonPath("$.age").value(mockUpdateAuthorDTO.getAge()));
+                .andExpect(jsonPath("$.age").value(mockUpdateAuthorDTO.getAge()))
+                .andExpect(jsonPath("$.cpf").value(mockAuthorDTO.getCpf()));
     }
 
     @Test
