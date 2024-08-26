@@ -57,30 +57,11 @@ test {
 	}
 }
 
-//jacocoTestCoverageVerification {
-//	dependsOn jacocoTestReport
-//	violationRules {
-//		rule {
-//			limit {
-//				minimum = 0.8
-//			}
-//		}
-//	}
-//	classDirectories.setFrom(
-//			files(classDirectories.files.collect {
-//				fileTree(dir: it, exclude: [
-//						'com/library/api/DemoApplication.class'
-//				])
-//			})
-//	)
-//}
-
-
 jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.8
+				minimum = 0.9
 			}
 		}
 	}
