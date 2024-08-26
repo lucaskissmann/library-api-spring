@@ -64,6 +64,18 @@ public class RenterControllerTest {
     }
 
     @Test
+    @DisplayName("[GET] Deve retornar 200 e uma lista de todos os Locatários")
+    @SqlGroup({
+            @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertRenters),
+            @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
+    })
+    public void shouldReturn200_GetAllRenters() throws Exception {
+        mockMvc.perform(get(PATH))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
     @DisplayName("[GET] Deve retornar 200 ao buscar um Renter pelo ID informado")
     @SqlGroup({
             @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertRenters),

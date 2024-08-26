@@ -38,7 +38,7 @@ public class RemoveBookValidatorTest {
     }
 
     @Test
-    @DisplayName("[VALIDATION] Deve permitir a deleção de um livro")
+    @DisplayName("[VALIDATION] Deve lançar uma exceção ao tentar remover um livro com um aluguel ativo")
     public void shouldThrowBadRequestExceptionWhenBookIsAssociatedWithActiveRental() {
         when(rentalRepository.findByBooksContainsAndIsReturned(bookStub, false)).thenReturn(List.of(rentalStub));
 

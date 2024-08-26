@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.1'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'jacoco'
 }
 
 group = 'com.librari'
@@ -41,6 +42,54 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
 }
 
-tasks.named('test') {
+
+test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+test {
+	jacoco {
+		enabled = true
+	}
+}
+
+//jacocoTestCoverageVerification {
+//	dependsOn jacocoTestReport
+//	violationRules {
+//		rule {
+//			limit {
+//				minimum = 0.8
+//			}
+//		}
+//	}
+//	classDirectories.setFrom(
+//			files(classDirectories.files.collect {
+//				fileTree(dir: it, exclude: [
+//						'com/library/api/DemoApplication.class'
+//				])
+//			})
+//	)
+//}
+
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.8
+			}
+		}
+	}
+}
+tasks.withType(Test).configureEach {
+	jacoco {
+		excludes += ['com.library.api.DemoApplication',
+		'com.library.api.context.*']
+
+	}
+}
+

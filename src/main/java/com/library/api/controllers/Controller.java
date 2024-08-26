@@ -8,32 +8,12 @@ public class Controller {
     /**
      * created
      *
-     * @return ResponseEntity<T>
-     */
-    protected <T> ResponseEntity<T> created()
-    {
-        return new ResponseEntity<>( HttpStatus.CREATED );
-    }
-
-    /**
-     * created
-     *
      * @param body T
      * @return ResponseEntity<T>
      */
     protected <T> ResponseEntity<T> created( T body )
     {
         return new ResponseEntity<>( body, HttpStatus.CREATED );
-    }
-
-    /**
-     * ok
-     *
-     * @return ResponseEntity<T>
-     */
-    protected <T> ResponseEntity<T> ok()
-    {
-        return new ResponseEntity<>( HttpStatus.OK );
     }
 
     /**

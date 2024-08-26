@@ -76,6 +76,17 @@ public class BookServiceTest {
     }
 
     @Test
+    @DisplayName("[SERVICE] Deve lançar uma exceção ao tentar criar um livro com um nome já registrado")
+    public void shouldThrowBadRequestExceptionWhenTryToCreateABookWithInvalidName() {
+        when(bookRepository.findByTitle(bookRequestStub.getTitle())).thenReturn(Optional.of(BookStub.createBookStub()));
+
+        BadRequestException exception = assertThrows(BadRequestException.class,
+                () -> bookService.create(bookRequestStub));
+
+        assertEquals(exception.getMessage(), "Livro já cadastrado para o título '" + bookRequestStub.getTitle() + "'");
+    }
+
+    @Test
     @DisplayName("[SERVICE] Não deve criar um livro para dados inválidos")
     public void shouldNotCreateABook() {
         Set<ConstraintViolation<BookRequestDTO>> violations = validator.validate(invalidBookRequestDTO);

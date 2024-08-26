@@ -1,10 +1,7 @@
 package com.library.api.modules.authors;
 
-import com.library.api.modules.authors.enums.Genders;
 import com.library.api.modules.common.entities.Person;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +17,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 public class Author extends Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )

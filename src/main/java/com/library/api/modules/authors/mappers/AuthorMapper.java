@@ -27,8 +27,6 @@ public interface AuthorMapper {
 		return Enum.valueOf(Genders.class, gender.toUpperCase());
 	}
 	
-	AuthorRequestDTO toDTO(Author entity);
-
 	AuthorResponseDTO toResponseDTO(Author entity);
 
 	@Mapping(target = "id", ignore = true)

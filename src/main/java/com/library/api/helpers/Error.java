@@ -1,12 +1,12 @@
 package com.library.api.helpers;
 
 
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
-@Data
+@Getter
 public class Error
 {
     private int code;

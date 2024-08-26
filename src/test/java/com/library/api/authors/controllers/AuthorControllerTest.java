@@ -122,6 +122,21 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("[POST] Deve retornar um 400 ao tentar criar Autor com campos obrigatórios faltando")
+    public void shouldReturn400_CreateAuthorWithoutRequiredFields() throws Exception {
+        final AuthorRequestDTO mockAuthorWithoutRequiredFields = AuthorStub.createInvalidAuthorRequestDTO();
+
+        mockMvc.perform(post(PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content( json(mockAuthorWithoutRequiredFields)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("Erro de validação"))
+                .andExpect(jsonPath("$.errors").isArray());
+    }
+
+    @Test
     @DisplayName("[GET] Deve retornar 200 ao buscar um Autor pelo ID informado")
     @SqlGroup({
             @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = QueryProvider.insertAuthors),
