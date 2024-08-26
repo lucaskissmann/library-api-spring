@@ -22,6 +22,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Install H2 Database
+        run: sudo apt-get install -y libh2-java
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
