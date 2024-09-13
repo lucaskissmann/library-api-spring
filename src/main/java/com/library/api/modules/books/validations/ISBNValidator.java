@@ -37,7 +37,7 @@ public class ISBNValidator implements ConstraintValidator<ISBN, String> {
 
     private boolean isISBNValid(String isbn) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ApplicationContext.GOOGLE_API + isbn))
+                .uri(URI.create(ApplicationContext.getInstance().getGoogleApiUrl() + isbn))
                 .GET()
                 .build();
 

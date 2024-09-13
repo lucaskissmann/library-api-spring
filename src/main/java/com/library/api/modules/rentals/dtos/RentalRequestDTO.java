@@ -16,11 +16,11 @@ public class RentalRequestDTO {
 
     @ValidDate
     @Builder.Default
-    String rentalDate = ApplicationContext.today().toString();
+    String rentalDate = ApplicationContext.getInstance().today().toString();
 
     @ValidDate
     @Builder.Default
-    String returnDate = ApplicationContext.today().plusDays(2).toString();
+    String returnDate = ApplicationContext.getInstance().today().plusDays(2).toString();
 
     @NotNull(message = "O ID do locatário deve ser informado")
     Long renterId;

@@ -16,8 +16,8 @@ public interface RentalStub {
                 .id(1L)
                 .books(List.of(BookStub.createBookStub()))
                 .renter(RenterStub.createRenterStub())
-                .rentalDate(ApplicationContext.today())
-                .returnDate(ApplicationContext.today().plusDays(2))
+                .rentalDate(ApplicationContext.getInstance().today())
+                .returnDate(ApplicationContext.getInstance().today().plusDays(2))
                 .build();
     }
 
@@ -25,8 +25,8 @@ public interface RentalStub {
         return RentalRequestDTO.builder()
                 .bookIds(List.of(1L))
                 .renterId(1L)
-                .rentalDate(ApplicationContext.today().toString())
-                .returnDate(ApplicationContext.today().plusDays(2).toString())
+                .rentalDate(ApplicationContext.getInstance().today().toString())
+                .returnDate(ApplicationContext.getInstance().today().plusDays(2).toString())
                 .build();
     }
 
@@ -35,8 +35,8 @@ public interface RentalStub {
                 .id(1L)
                 .books(List.of(BookStub.createBookResponseDTO()))
                 .renter(RenterStub.createRenterResponseDTO())
-                .rentalDate(ApplicationContext.today().toString())
-                .returnDate(ApplicationContext.today().plusDays(2).toString())
+                .rentalDate(ApplicationContext.getInstance().today().toString())
+                .returnDate(ApplicationContext.getInstance().today().plusDays(2).toString())
                 .isReturned(false)
                 .build();
     }
