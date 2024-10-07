@@ -1,5 +1,6 @@
 package com.library.api.modules.books;
 
+import com.library.api.modules.books.enums.BookCategory;
 import com.library.api.modules.rentals.Rental;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,4 +38,7 @@ public class Book {
 
     @Builder.Default
     private BookState state = BookState.AVAILABLE;
+
+    @Enumerated(EnumType.STRING)
+    private BookCategory category;
 }

@@ -6,6 +6,7 @@ import com.library.api.modules.books.Book;
 import com.library.api.modules.books.dtos.BookRequestDTO;
 import com.library.api.modules.books.dtos.BookResponseDTO;
 import com.library.api.modules.books.dtos.UpdateBookDTO;
+import com.library.api.modules.books.enums.BookCategory;
 import com.library.api.modules.books.enums.BookState;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public interface BookStub {
                 .publicationDate(LocalDate.parse("1996-06-08"))
                 .state(BookState.AVAILABLE)
                 .authors(List.of(AuthorStub.createAuthorStub()))
+                .category(BookCategory.TERROR)
                 .build();
     }
 
@@ -29,6 +31,7 @@ public interface BookStub {
                 .id(1L)
                 .title("1984")
                 .authors(List.of(AuthorStub.createAuthorStub()))
+                .category(BookCategory.TERROR)
                 .build();
     }
 
@@ -38,6 +41,7 @@ public interface BookStub {
                 .publicationDate("1996-06-08")
                 .authorIds(List.of(1L))
                 .isbn("9783161484100")
+                .category("TERROR")
                 .build();
     }
 
@@ -46,6 +50,7 @@ public interface BookStub {
                 .title(null)
                 .publicationDate(null)
                 .authorIds(null)
+                .category(null)
                 .build();
     }
 
@@ -57,6 +62,7 @@ public interface BookStub {
                 .authors(List.of(AuthorStub.createAuthorResponseDTO()))
                 .isbn("9783161484100")
                 .state(BookState.AVAILABLE)
+                .category(BookCategory.TERROR)
                 .build();
     }
 
@@ -66,6 +72,7 @@ public interface BookStub {
                 .publicationDate("2000-01-01")
                 .authorIds(List.of(1L))
                 .isbn("9783161484100")
+                .category("ROMANCE")
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.library.api.modules.books.dtos;
 
+import com.library.api.modules.books.enums.BookCategory;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,5 +17,6 @@ public class BookResponseDTO {
     String publicationDate;
     String isbn;
     BookState state;
+    BookCategory category;
     List<AuthorResponseDTO> authors;
 }

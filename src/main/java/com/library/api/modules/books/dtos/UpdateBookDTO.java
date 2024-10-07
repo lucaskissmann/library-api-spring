@@ -19,4 +19,6 @@ public class UpdateBookDTO {
 
     @ISBN
     private String isbn;
+
+    private String category;
 }

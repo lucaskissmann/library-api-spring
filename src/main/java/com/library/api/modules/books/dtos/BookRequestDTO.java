@@ -30,4 +30,7 @@ public class BookRequestDTO {
     @NotNull(message = "A lista de IDs de autores não pode ser nula")
     @NotEmpty(message = "Deve ser informado ao menos um ID de autor")
     List<Long> authorIds;
+
+    @NotBlank(message = "A categoria do livro deve ser informada")
+    String category;
 }
