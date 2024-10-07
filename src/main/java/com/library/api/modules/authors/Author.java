@@ -24,7 +24,7 @@ public class Author extends Person {
 
 	private String age;
 
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 		name = "book_mappings",
 		joinColumns = {@JoinColumn(name = "ref_author", referencedColumnName = "id")},
@@ -33,7 +33,9 @@ public class Author extends Person {
 	private List<Book> books = new ArrayList<>();
 
 	public void addBook(Book book) {
-		this.books.add(book);
+		if(!this.books.contains(book)) {
+			this.books.add(book);
+		}
 	}
 
 	public void removeBook(Book book) {

@@ -94,4 +94,12 @@ public class AuthorServiceImpl implements AuthorService {
 
 		authorRepository.delete(author);
 	}
+
+	public void updateAuthorsBooks(List<Long> authorIds, Book book) {
+		if(authorIds != null) {
+			for( Author author : this.getAuthorsByIds(authorIds)) {
+				author.addBook(book);
+			}
+		}
+	}
 }
