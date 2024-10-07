@@ -5,6 +5,7 @@ import com.library.api.context.ApplicationContext;
 import com.library.api.modules.rentals.Rental;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
+import com.library.api.modules.rentals.dtos.ReturnRentalDTO;
 import com.library.api.renters.stubs.RenterStub;
 
 import java.util.List;
@@ -38,6 +39,12 @@ public interface RentalStub {
                 .rentalDate(ApplicationContext.getInstance().today().toString())
                 .returnDate(ApplicationContext.getInstance().today().plusDays(2).toString())
                 .isReturned(false)
+                .build();
+    }
+
+    static ReturnRentalDTO createReturnRentalStub() {
+        return ReturnRentalDTO.builder()
+                .bookIds(List.of(1L))
                 .build();
     }
 }

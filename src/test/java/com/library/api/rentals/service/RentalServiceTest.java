@@ -6,6 +6,7 @@ import com.library.api.modules.books.Book;
 import com.library.api.modules.rentals.Rental;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
+import com.library.api.modules.rentals.dtos.ReturnRentalDTO;
 import com.library.api.rentals.stubs.RentalStub;
 import com.library.api.repositories.RentalRepository;
 import com.library.api.services.*;
@@ -28,6 +29,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
 public class RentalServiceTest {
 
     private Rental rentalStub;
+    private ReturnRentalDTO returnRentalDTO;
     private RentalRequestDTO rentalRequestStub;
     private List<Book> booksStub;
     private RentalResponseDTO rentalResponseStub;
@@ -49,6 +51,7 @@ public class RentalServiceTest {
         openMocks(this);
 
         rentalStub = RentalStub.createRentalStub();
+        returnRentalDTO = RentalStub.createReturnRentalStub();
         rentalRequestStub = RentalStub.createRentalRequestStub();
         booksStub = List.of(BookStub.createBookStub());
         rentalResponseStub = RentalStub.createRentalResponseStub();
@@ -108,7 +111,7 @@ public class RentalServiceTest {
         when(rentalRepository.findById(anyLong())).thenReturn(Optional.of(rentalStub));
         when(rentalRepository.save(any(Rental.class))).thenReturn(rentalStub);
 
-        RentalResponseDTO response = rentalService.returnBooks(rentalStub.getId());
+        RentalResponseDTO response = rentalService.returnBooks(rentalStub.getId(), returnRentalDTO);
 
         assertEquals(rentalStub.getId(), response.getId());
         assertEquals(true, response.getIsReturned());

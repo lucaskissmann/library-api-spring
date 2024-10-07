@@ -18,7 +18,7 @@ public interface RenterStub {
                 .cpf("56236023042")
                 .email("lk@mail.com")
                 .gender(Genders.MASCULINO)
-                .phone("51 998753332")
+                .phone("51998753332")
                 .build();
     }
 
@@ -30,7 +30,7 @@ public interface RenterStub {
                 .cpf("56236023042")
                 .email("lk@mail.com.br")
                 .gender(Genders.MASCULINO)
-                .phone("51 998753332")
+                .phone("51998753332")
                 .build();
     }
 
@@ -42,7 +42,7 @@ public interface RenterStub {
                 .cpf("98323215065")
                 .email("lk@mail.com")
                 .gender(Genders.MASCULINO)
-                .phone("51 998753332")
+                .phone("51998753332")
                 .build();
     }
 
@@ -53,7 +53,7 @@ public interface RenterStub {
                 .cpf("56236023042")
                 .email("lk@mail.com")
                 .gender("MASCULINO")
-                .phone("51 998753332")
+                .phone("51998753332")
                 .build();
     }
 
@@ -87,7 +87,7 @@ public interface RenterStub {
                 .cpf("56236023042")
                 .email("lk@mail.com")
                 .gender("MASCULINO")
-                .phone("51 998753332")
+                .phone("51998753332")
                 .build();
     }
 }

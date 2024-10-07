@@ -3,6 +3,7 @@ package com.library.api.rentals;
 import com.library.api.helpers.QueryProvider;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
+import com.library.api.modules.rentals.dtos.ReturnRentalDTO;
 import com.library.api.rentals.stubs.RentalStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ public class RentalControllerTest {
     private final String PATH = "/rentals";
 
     private final RentalRequestDTO mockRentalDTO = RentalStub.createRentalRequestStub();
+    private final ReturnRentalDTO returnRentalDTO = RentalStub.createReturnRentalStub();
 
     @Test
     @DisplayName("[POST] Deve retornar 201 ao criar um Aluguel")
@@ -111,7 +113,9 @@ public class RentalControllerTest {
             @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = QueryProvider.resetDB),
     })
     public void shouldReturn200_ReturnRental() throws Exception {
-        mockMvc.perform(put(PATH + "/{rentalId}/returns", 1))
+        mockMvc.perform(put(PATH + "/{rentalId}/returns", 1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json(returnRentalDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.isReturned").value(true));
@@ -120,7 +124,9 @@ public class RentalControllerTest {
     @Test
     @DisplayName("[PUT] Deve retornar 404 ao tentar retornar um Aluguel com um ID inexistente")
     public void shouldReturn404_ReturnRental() throws Exception {
-        mockMvc.perform(put(PATH + "/{rentalId}/returns", 1))
+        mockMvc.perform(put(PATH + "/{rentalId}/returns", 1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json(returnRentalDTO)))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.code").value("404"))
                 .andExpect(jsonPath("$.status").value("Not Found"))

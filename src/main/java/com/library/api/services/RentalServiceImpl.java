@@ -2,14 +2,17 @@ package com.library.api.services;
 
 import com.library.api.helpers.exceptions.NotFoundException;
 import com.library.api.modules.books.Book;
+import com.library.api.modules.books.enums.BookState;
 import com.library.api.modules.rentals.Rental;
 import com.library.api.modules.rentals.dtos.RentalRequestDTO;
 import com.library.api.modules.rentals.dtos.RentalResponseDTO;
+import com.library.api.modules.rentals.dtos.ReturnRentalDTO;
 import com.library.api.modules.rentals.mappers.RentalMapper;
 import com.library.api.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RentalServiceImpl implements RentalService {
@@ -59,12 +62,19 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public RentalResponseDTO returnBooks(Long id) {
+    public RentalResponseDTO returnBooks(Long id, ReturnRentalDTO dto) {
         Rental rental = getRentalById(id);
 
-        bookService.returnBooks(rental.getBooks());
+        List<Book> booksToReturn = rental.getBooks().stream()
+                .filter(book -> dto.getBookIds().contains(book.getId()))
+                .toList();
 
-        rental.setIsReturned(true);
+        bookService.returnBooks(booksToReturn);
+
+        if( rental.getBooks().stream().allMatch(book -> book.getState().equals(BookState.AVAILABLE))) {
+            rental.setIsReturned(true);
+        }
+
         rentalRepository.save(rental);
 
         return rentalMapper.toResponseDto(rental);
