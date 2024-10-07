@@ -1,9 +1,12 @@
 package com.library.api.services;
 
 import com.library.api.modules.authors.Author;
+import com.library.api.modules.books.specifications.BookSpecification;
 import com.library.api.modules.books.dtos.UpdateBookDTO;
+import com.library.api.modules.books.enums.BookCategory;
 import com.library.api.modules.books.enums.BookState;
 import com.library.api.modules.books.validations.RemoveBookValidator;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.library.api.helpers.exceptions.BadRequestException;
@@ -41,6 +44,10 @@ public class BookServiceImpl implements BookService {
             throw new BadRequestException("Livro já cadastrado para o título '" + bookRequestDTO.getTitle() + "'");
         }
 
+        if(!BookCategory.isValid(bookRequestDTO.getCategory())) {
+            throw new BadRequestException("A categoria do livro deve ser uma das seguintes opções: 'FICÇÃO', 'ROMANCE', 'TERROR', 'CIÊNCIA', 'INFANTIL'");
+        }
+
         List<Author> authors = authorService.getAuthorsByIds(bookRequestDTO.getAuthorIds());
 
         Book book = bookMapper.toEntity(bookRequestDTO);
@@ -59,13 +66,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDTO> getBooks(Long authorId, String title) {
-        Author author = null;
-        if(authorId != null) {
-            author = authorService.getAuthorById(authorId);
-        }
+    public List<BookResponseDTO> getBooks(Long authorId, String title, String category, String state) {
+        Specification<Book> spec = BookSpecification.filter(authorId, title, category, state);
 
-        return bookMapper.toResponseDTOs(bookRepository.findByAuthorAndTitle(author, title));
+        List<Book> books = bookRepository.findAll(spec);
+
+        return bookMapper.toResponseDTOs(books);
     }
 
     private Book getBookById(Long id) {
@@ -77,8 +83,13 @@ public class BookServiceImpl implements BookService {
     public BookResponseDTO updateBook(Long id, UpdateBookDTO updateDTO) {
         Book book = getBookById(id);
 
+        if(!BookCategory.isValid(updateDTO.getCategory())) {
+            throw new BadRequestException("A categoria do livro deve ser uma das seguintes opções: 'FICÇÃO', 'ROMANCE', 'TERROR', 'CIÊNCIA', 'INFANTIL'");
+        }
+
         bookMapper.updateEntityFromDto(book, updateDTO);
         updateBookAuthors(updateDTO.getAuthorIds(), book);
+        authorService.updateAuthorsBooks(updateDTO.getAuthorIds(), book);
 
         this.bookRepository.save(book);
 
@@ -96,6 +107,10 @@ public class BookServiceImpl implements BookService {
         Book book = getBookById(id);
 
         removeBookValidator.validate(book);
+
+        for (Author author : book.getAuthors()) {
+            author.removeBook(book);
+        }
 
         bookRepository.delete(book);
     }

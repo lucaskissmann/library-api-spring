@@ -49,6 +49,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value(mockBookDTO.getTitle()))
                 .andExpect(jsonPath("$.isbn").value(mockBookDTO.getIsbn()))
+                .andExpect(jsonPath("$.category").value(mockBookDTO.getCategory()))
                 .andExpect(jsonPath("$.authors[0].id").value(mockBookDTO.getAuthorIds().get(0)));
     }
 
@@ -95,7 +96,8 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value(mockUpdateBookDTO.getTitle()))
-                .andExpect(jsonPath("$.isbn").value(mockUpdateBookDTO.getIsbn()));
+                .andExpect(jsonPath("$.isbn").value(mockUpdateBookDTO.getIsbn()))
+                .andExpect(jsonPath("$.category").value(mockUpdateBookDTO.getCategory()));
     }
 
     @Test
@@ -150,6 +152,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$[0].id").value(mockBookResponseDTOs.get(0).getId()))
                 .andExpect(jsonPath("$[0].title").value(mockBookResponseDTOs.get(0).getTitle()))
                 .andExpect(jsonPath("$[0].isbn").value(mockBookResponseDTOs.get(0).getIsbn()))
+                .andExpect(jsonPath("$[0].category").value(mockBookResponseDTOs.get(0).getCategory().toString()))
                 .andExpect(jsonPath("$[0].authors").isArray());
     }
 }

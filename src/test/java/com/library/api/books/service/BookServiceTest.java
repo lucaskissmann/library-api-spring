@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
@@ -72,6 +73,7 @@ public class BookServiceTest {
         assertEquals(bookRequestStub.getPublicationDate(), dto.getPublicationDate());
         assertEquals(bookRequestStub.getAuthorIds().get(0), dto.getAuthors().get(0).getId());
         assertEquals(BookState.AVAILABLE, dto.getState());
+        assertEquals(bookRequestStub.getCategory(), dto.getCategory().toString());
         verify(bookRepository, times(1)).save(any(Book.class));
     }
 
@@ -116,6 +118,7 @@ public class BookServiceTest {
         assertEquals(foundBook.getIsbn(), bookResponseStub.getIsbn());
         assertEquals(foundBook.getPublicationDate(), bookResponseStub.getPublicationDate());
         assertEquals(foundBook.getState(), bookResponseStub.getState());
+        assertEquals(foundBook.getCategory(), bookResponseStub.getCategory());
     }
 
     @Test
@@ -136,9 +139,9 @@ public class BookServiceTest {
     @Test
     @DisplayName("[SERVICE] Deve encontrar uma lista de livros")
     public void shouldFindAllBooks() {
-        when(bookRepository.findByAuthorAndTitle(null, null)).thenReturn(List.of(bookStub));
+        when(bookRepository.findAll(any(Specification.class))).thenReturn(List.of(bookStub));
 
-        List<BookResponseDTO> foundBooks = bookService.getBooks(null, null);
+        List<BookResponseDTO> foundBooks = bookService.getBooks(null, null, null, null);
 
         assertNotNull(foundBooks);
         assertEquals(foundBooks.size(), 1);
@@ -160,6 +163,7 @@ public class BookServiceTest {
         assertEquals(result.getTitle(), updateBookStub.getTitle());
         assertEquals(result.getPublicationDate(), updateBookStub.getPublicationDate());
         assertEquals(result.getAuthors().size(), 2);
+        assertEquals(result.getCategory().toString(), updateBookStub.getCategory());
 
         verify(bookRepository).findById(bookId);
         verify(bookRepository).save(bookStub);

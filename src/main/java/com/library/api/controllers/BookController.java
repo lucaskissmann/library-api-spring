@@ -30,8 +30,10 @@ public class BookController
 
     @GetMapping
     private ResponseEntity<List<BookResponseDTO>> getBooks(@RequestParam(required = false) Long authorId,
-                                                           @RequestParam(required = false) String title) {
-        return ok(bookService.getBooks(authorId, title));
+                                                           @RequestParam(required = false) String title,
+                                                           @RequestParam(required = false) String category,
+                                                           @RequestParam(required = false) String state) {
+        return ok(bookService.getBooks(authorId, title, category, state));
     }
 
     @GetMapping("/{id}")

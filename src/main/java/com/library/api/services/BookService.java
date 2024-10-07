@@ -10,7 +10,7 @@ import java.util.List;
 public interface BookService {
     BookResponseDTO create(BookRequestDTO bookRequestDTO);
     BookResponseDTO getBook(Long id);
-    List<BookResponseDTO> getBooks(Long authorId, String title);
+    List<BookResponseDTO> getBooks(Long authorId, String title, String category, String state);
     List<Book> getBooksByIds(List<Long> bookIds);
     void returnBooks(List<Book> books);
     void rentBooks(List<Book> books);
