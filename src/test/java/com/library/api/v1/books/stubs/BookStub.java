@@ -1,0 +1,78 @@
+package com.library.api.v1.books.stubs;
+
+
+import com.library.api.v1.authors.stubs.AuthorStub;
+import com.library.api.v1.modules.books.Book;
+import com.library.api.v1.modules.books.dtos.BookRequestDTO;
+import com.library.api.v1.modules.books.dtos.BookResponseDTO;
+import com.library.api.v1.modules.books.dtos.UpdateBookDTO;
+import com.library.api.v1.modules.books.enums.BookCategory;
+import com.library.api.v1.modules.books.enums.BookState;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public interface BookStub {
+
+    static Book createBookStub() {
+        return Book.builder()
+                .id(1L)
+                .title("1984")
+                .isbn("9783161484100")
+                .publicationDate(LocalDate.parse("1996-06-08"))
+                .state(BookState.AVAILABLE)
+                .authors(List.of(AuthorStub.createAuthorStub()))
+                .category(BookCategory.TERROR)
+                .build();
+    }
+
+    static Book createBookWithoutStateStub() {
+        return Book.builder()
+                .id(1L)
+                .title("1984")
+                .authors(List.of(AuthorStub.createAuthorStub()))
+                .category(BookCategory.TERROR)
+                .build();
+    }
+
+    static BookRequestDTO createBookRequestDTO() {
+        return BookRequestDTO.builder()
+                .title("1984")
+                .publicationDate("1996-06-08")
+                .authorIds(List.of(1L))
+                .isbn("9783161484100")
+                .category("TERROR")
+                .build();
+    }
+
+    static BookRequestDTO createInvalidBookRequestDTO() {
+        return BookRequestDTO.builder()
+                .title(null)
+                .publicationDate(null)
+                .authorIds(null)
+                .category(null)
+                .build();
+    }
+
+    static BookResponseDTO createBookResponseDTO() {
+        return BookResponseDTO.builder()
+                .id(1L)
+                .title("1984")
+                .publicationDate("1996-06-08")
+                .authors(List.of(AuthorStub.createAuthorResponseDTO()))
+                .isbn("9783161484100")
+                .state(BookState.AVAILABLE)
+                .category(BookCategory.TERROR)
+                .build();
+    }
+
+    static UpdateBookDTO updateBookDTO() {
+        return UpdateBookDTO.builder()
+                .title("1984 updated")
+                .publicationDate("2000-01-01")
+                .authorIds(List.of(1L))
+                .isbn("9783161484100")
+                .category("ROMANCE")
+                .build();
+    }
+}

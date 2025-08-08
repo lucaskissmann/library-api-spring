@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -28,35 +28,41 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	implementation("org.projectlombok:lombok:1.18.38")
+
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	testImplementation  'com.h2database:h2'
+	testImplementation 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
 }
-
 
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
 }
+
 jacoco {
-	toolVersion = "0.8.7"
+	toolVersion = "0.8.11"
 }
 
-test {
+tasks.withType(Test).configureEach {
 	jacoco {
 		enabled = true
+		excludes += [
+				'com.library.api.DemoApplication',
+				'com.library.api.context.*'
+		]
 	}
 }
 
@@ -69,11 +75,3 @@ jacocoTestCoverageVerification {
 		}
 	}
 }
-tasks.withType(Test).configureEach {
-	jacoco {
-		excludes += ['com.library.api.DemoApplication',
-		'com.library.api.context.*']
-
-	}
-}
-
