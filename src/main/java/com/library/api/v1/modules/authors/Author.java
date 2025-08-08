@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "authors")
@@ -36,7 +35,7 @@ public class Author extends Person {
 		joinColumns = {@JoinColumn(name = "ref_author", referencedColumnName = "id")},
 		inverseJoinColumns = {@JoinColumn(name = "ref_book", referencedColumnName = "id")}
 	)
-	private List<Book> books = new ArrayList<>();
+	private List<Book> books;
 
 	public void addBook(Book book) {
 		if(!this.books.contains(book)) {

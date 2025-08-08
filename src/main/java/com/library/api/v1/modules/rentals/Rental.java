@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "rentals")
@@ -49,5 +48,5 @@ public class Rental {
         joinColumns = {@JoinColumn(name = "ref_rental", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "ref_book", referencedColumnName = "id")}
     )
-    private List<Book> books = new ArrayList<>();
+    private List<Book> books;
 }

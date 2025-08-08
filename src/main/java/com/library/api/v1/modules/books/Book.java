@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "books")
@@ -40,10 +39,10 @@ public class Book {
     private String isbn;
 
     @ManyToMany(mappedBy = "books")
-    private List<Author> authors = new ArrayList<>();
+    private List<Author> authors;
 
     @ManyToMany(mappedBy = "books")
-    private List<Rental> rentals = new ArrayList<>();
+    private List<Rental> rentals;
 
     @Builder.Default
     private BookState state = BookState.AVAILABLE;
