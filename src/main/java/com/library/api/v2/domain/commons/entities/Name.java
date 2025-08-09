@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Name {
     private String firstName;
     private String lastName;
+    private String fullName;
 
     public Name (String fullName) {
         if (fullName == null || fullName.trim().isEmpty()) {
@@ -28,6 +29,7 @@ public class Name {
 
         this.firstName = parts[0];
         this.lastName = parts[parts.length - 1];
+        this.fullName = fullName;
     }
 
     public String getInitials() {
