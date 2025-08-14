@@ -9,7 +9,7 @@ import org.mapstruct.MappingTarget;
 
 import java.time.LocalDate;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public abstract class UpdateAuthorMapper {
     protected Name stringToName(String fullName) {
         return fullName == null ? null : new Name(fullName);

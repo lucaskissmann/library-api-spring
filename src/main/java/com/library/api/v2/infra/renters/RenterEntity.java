@@ -23,7 +23,7 @@ public class RenterEntity extends Person {
 
     private String email;
 
-    private LocalDate birthDate;
+    private LocalDate birthdate;
 
     @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;
