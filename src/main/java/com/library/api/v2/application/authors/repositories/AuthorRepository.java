@@ -13,4 +13,5 @@ public interface AuthorRepository {
     Optional<Author> findByCpf(String cpf);
     Optional<Author> findById(UUID id);
     void delete(Author author);
+    void save(Author author);
 }

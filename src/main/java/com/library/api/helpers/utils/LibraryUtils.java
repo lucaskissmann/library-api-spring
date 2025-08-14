@@ -17,4 +17,10 @@ public class LibraryUtils {
             return null;
         return name.getFullName();
     }
+
+    public static String normalizeCPF(String cpf) {
+        if (cpf == null || cpf.isEmpty())
+            return null;
+        return cpf.replaceAll("\\D", "");
+    }
 }

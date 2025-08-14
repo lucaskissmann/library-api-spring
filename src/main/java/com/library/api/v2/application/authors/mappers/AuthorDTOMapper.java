@@ -27,13 +27,13 @@ public interface AuthorDTOMapper {
     @Mapping(target = "cpf", source = "dto.cpf", qualifiedByName = "cleanCpf")
     Author toDomain(AuthorRequestDTO dto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "gender", ignore = true)
-    @Mapping(target = "books", ignore = true)
-    @Mapping(target = "cpf", source = "dto.cpf", qualifiedByName = "cleanCpf")
-    @Mapping(target = "name", source = "dto.name", qualifiedByName = "stringToName")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntityFromDto(@MappingTarget Author domain, UpdateAuthorDTO dto);
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "gender", ignore = true)
+//    @Mapping(target = "books", ignore = true)
+//    @Mapping(target = "cpf", source = "dto.cpf", qualifiedByName = "cleanCpf")
+//    @Mapping(target = "name", source = "dto.name", qualifiedByName = "stringToName")
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+//    void updateEntityFromDto(@MappingTarget Author domain, UpdateAuthorDTO dto);
 
     @Mapping(source = "name", target = "name", qualifiedByName = "nameToString")
     AuthorResponseDTO toResponseDTO(Author domain);

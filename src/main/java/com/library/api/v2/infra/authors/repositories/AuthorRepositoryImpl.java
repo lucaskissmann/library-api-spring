@@ -47,4 +47,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public void delete(Author author) {
         authorEntityRepository.delete(mapper.toEntity(author));
     }
+
+    @Override
+    public void save(Author author) {
+        authorEntityRepository.save(mapper.toEntity(author));
+    }
 }

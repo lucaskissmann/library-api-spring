@@ -46,7 +46,7 @@ public interface AuthorSwagger {
                     )
             }
     )
-    ResponseEntity<AuthorResponseDTO> create(@Valid @RequestBody AuthorRequestDTO content);
+    ResponseEntity<AuthorResponseDTO> create(@Valid @RequestBody AuthorRequestDTO dto);
 
     @Operation(
             operationId = "updateAuthor",
@@ -71,7 +71,7 @@ public interface AuthorSwagger {
                     )
             }
     )
-    ResponseEntity<AuthorResponseDTO> update(@Valid @RequestBody UpdateAuthorDTO updateDto, @PathVariable Long id);
+    ResponseEntity<AuthorResponseDTO> update(@Valid @RequestBody UpdateAuthorDTO updateDto, @PathVariable UUID id);
 
     @Operation(
             operationId = "getAuthors",
@@ -113,7 +113,7 @@ public interface AuthorSwagger {
                     )
             }
     )
-    ResponseEntity<AuthorResponseDTO> getAuthor(@PathVariable Long id);
+    ResponseEntity<AuthorResponseDTO> getAuthor(@PathVariable UUID id);
 
     @Operation(
             operationId = "deleteAuthor",

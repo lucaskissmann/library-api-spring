@@ -1,10 +1,10 @@
 package com.library.api.v2.infra.books;
 
 
-//import com.library.api.v1.modules.rentals.Rental;
 import com.library.api.v2.domain.books.enums.BookCategory;
 import com.library.api.v2.domain.books.enums.BookState;
 import com.library.api.v2.infra.authors.AuthorEntity;
+import com.library.api.v2.infra.rentals.RentalEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -39,8 +39,8 @@ public class BookEntity {
     @ManyToMany(mappedBy = "books")
     private List<AuthorEntity> authors;
 
-//    @ManyToMany(mappedBy = "books")
-//    private List<Rental> rentals;
+    @ManyToMany(mappedBy = "books")
+    private List<RentalEntity> rentals;
 
     @Builder.Default
     private BookState state = BookState.AVAILABLE;

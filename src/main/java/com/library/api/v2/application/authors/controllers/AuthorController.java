@@ -1,12 +1,18 @@
 package com.library.api.v2.application.authors.controllers;
 
 import com.library.api.context.ApplicationContext;
+import com.library.api.v2.application.Controller;
 import com.library.api.v2.application.authors.controllers.dtos.AuthorRequestDTO;
 import com.library.api.v2.application.authors.controllers.dtos.AuthorResponseDTO;
 import com.library.api.v2.application.authors.controllers.dtos.UpdateAuthorDTO;
 import com.library.api.v2.application.authors.facades.AuthorFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,28 +26,27 @@ public class AuthorController extends Controller implements AuthorSwagger {
 
     private final AuthorFacade facade;
 
-    @Override
-    public ResponseEntity<AuthorResponseDTO> create(AuthorRequestDTO content) {
-
-        return null;
+    @PostMapping()
+    public ResponseEntity<AuthorResponseDTO> create(@Valid AuthorRequestDTO dto) {
+        return created(facade.createAuthor(dto));
     }
 
-    @Override
-    public ResponseEntity<AuthorResponseDTO> update(UpdateAuthorDTO updateDto, Long id) {
-        return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<AuthorResponseDTO> update(@Valid UpdateAuthorDTO dto, UUID id) {
+        return ok(facade.updateAuthor(dto, id));
     }
 
-    @Override
+    @GetMapping
     public ResponseEntity<List<AuthorResponseDTO>> getAuthors(String name) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<AuthorResponseDTO> getAuthor(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<AuthorResponseDTO> getAuthor(UUID id) {
         return null;
     }
 
-    @Override
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(UUID id) {
         facade.removeAuthor(id);
         return noContent();

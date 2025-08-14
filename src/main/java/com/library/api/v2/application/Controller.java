@@ -1,4 +1,4 @@
-package com.library.api.v2.application.authors.controllers;
+package com.library.api.v2.application;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
